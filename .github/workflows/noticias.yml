@@ -1,0 +1,34 @@
+name: Noticias de IA (le, analisa e enfileira)
+
+on:
+  schedule:
+    - cron: "40 9 * * *"    # 06:40 em Brasilia
+    - cron: "40 11 * * *"   # 08:40 em Brasilia (repete so se a de cima falhou)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  models: read
+
+jobs:
+  noticias:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Garantir fontes e Pillow
+        run: |
+          sudo apt-get install -y fonts-liberation >/dev/null 2>&1 || true
+          python3 -c "import PIL" 2>/dev/null || pip install -q pillow
+      - name: Ler noticias, escrever e gerar os posts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 noticias.py
+      - name: Gravar na fila
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A fila_noticias.json noticias_usadas.json imagens
+          if git diff --cached --quiet; then echo "nada novo"; exit 0; fi
+          git commit -q -m "noticias: posts do dia"
+          for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break || sleep 5; done

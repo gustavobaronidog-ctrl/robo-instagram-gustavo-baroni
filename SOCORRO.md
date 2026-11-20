@@ -30,3 +30,6 @@ O **Vigia** roda 5 vezes por dia e confere: token válido e conta certa, posts a
 
 ## Só o Claude resolve
 Código novo, criar conteúdo novo, Reels e vídeos. Nada aqui é compartilhado com o Tem Encaixe nem com o SeparaGo.
+
+## Notícias de IA (3 por dia, formato jornal)
+O workflow **Noticias de IA** roda às 6h40 (Brasília): lê as fontes de IA e o Hacker News, escolhe as 3 mais quentes, escreve a análise na sua voz (modelo gratuito do GitHub Models) e coloca na fila; o Maestro publica às 10h30, 14h30 e 17h. Se não gerar, o Vigia avisa por e-mail: Actions > Noticias de IA > Run workflow (1 vez).

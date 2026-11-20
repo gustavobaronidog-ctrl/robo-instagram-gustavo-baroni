@@ -74,6 +74,16 @@ if 7 <= agora.hour < 22 and saiu < devia and resta > 0:
          f"abra {REPO}/actions/workflows/maestro.yml , clique em 'Run workflow' (à direita) e no botão verde 'Run workflow'. Clique só 1 vez: o robô publica o que estiver atrasado.",
          "abra o Claude e escreva: o robô do Instagram pessoal atrasou os posts, destrave.")
 
+# 3b) notícias do dia (o robô gera às 6h40; se às 9h30 não houver 3, avisa)
+try:
+    fn = json.load(open("fila_noticias.json", encoding="utf-8"))
+    if (agora.hour, agora.minute) >= (9, 30) and sum(1 for x in fn if x.get("data") == hoje) < 3:
+        prob("as notícias de IA de hoje não foram geradas (fila de notícias sem as 3 de hoje)",
+             f"abra {REPO}/actions/workflows/noticias.yml , clique em 'Run workflow' (1 vez). Se falhar de novo, os carrosséis normais continuam saindo; as notícias esperam.",
+             "abra o Claude e escreva: o robô de notícias do Instagram pessoal não gerou os posts, conserte.")
+except FileNotFoundError:
+    pass
+
 # 4) arquivos das próximas postagens
 faltando = [os.path.join("imagens", s) for it in fila[p:p + 12] for s in it.get("slides", []) if not os.path.exists(os.path.join("imagens", s))]
 if faltando:
