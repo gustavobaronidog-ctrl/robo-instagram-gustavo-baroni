@@ -22,7 +22,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Conferir se o token ja foi configurado
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          if [ -n "$IG_TOKEN" ] || [ -f token.enc ]; then echo "TEM_TOKEN=1" >> "$GITHUB_ENV"; else echo "Sem token ainda: robo em espera (nada sera publicado)."; fi
+
       - name: Plantao de ~50 min (confere a cada 5 min e publica o atrasado)
+        if: env.TEM_TOKEN == '1'
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           IG_APP_SECRET: ${{ secrets.IG_APP_SECRET }}
@@ -35,7 +42,7 @@ jobs:
           python3 maestro.py
 
       - name: Guardar o avanco das filas (garantia extra)
-        if: always()
+        if: always() && env.TEM_TOKEN == '1'
         run: |
           git config user.name "robo-gustavo-baroni"
           git config user.email "robo@gustavobaroni.local"
@@ -45,7 +52,7 @@ jobs:
           git push || true
 
       - name: Ligar a proxima rodada (so entre 7h e 22h de Brasilia)
-        if: always()
+        if: always() && env.TEM_TOKEN == '1'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
