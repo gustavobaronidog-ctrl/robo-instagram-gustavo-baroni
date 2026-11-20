@@ -1,0 +1,57 @@
+name: Maestro dos posts
+
+on:
+  schedule:
+    # Reserva: se a corrente de plantoes se quebrar, o agendamento religa. Das 7h as 22h (Brasilia).
+    - cron: "17,47 10-23 * * *"
+    - cron: "17,47 0-1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+jobs:
+  maestro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Plantao de ~50 min (confere a cada 5 min e publica o atrasado)
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_APP_SECRET: ${{ secrets.IG_APP_SECRET }}
+          IG_APP_ID: ${{ vars.IG_APP_ID }}
+          IG_REDIRECT: ${{ vars.IG_REDIRECT }}
+          IG_USERNAME: gustavobaroni.ai
+        run: |
+          git config user.name "robo-gustavo-baroni"
+          git config user.email "robo@gustavobaroni.local"
+          python3 maestro.py
+
+      - name: Guardar o avanco das filas (garantia extra)
+        if: always()
+        run: |
+          git config user.name "robo-gustavo-baroni"
+          git config user.email "robo@gustavobaroni.local"
+          git add estado*.json; git add token.enc 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "maestro: avanca as filas"
+          git pull --rebase -q || true
+          git push || true
+
+      - name: Ligar a proxima rodada (so entre 7h e 22h de Brasilia)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          H=$(TZ=America/Sao_Paulo date +%H)
+          if [ "$H" -ge 7 ] && [ "$H" -lt 22 ]; then
+            gh workflow run maestro.yml --repo "$GITHUB_REPOSITORY" --ref main
+          else
+            echo "Fora do horario (7h-22h): nao liga a proxima rodada."
+          fi

@@ -1,0 +1,478 @@
+[
+ {
+  "carrossel": 1,
+  "tipo": "educativo",
+  "slides": [
+   "g001_s1.jpg",
+   "g001_s2.jpg",
+   "g001_s3.jpg",
+   "g001_s4.jpg",
+   "g001_s5.jpg",
+   "g001_s6.jpg"
+  ],
+  "legenda": "O primeiro comando muda tudo: peça perguntas antes de pedir código.\n\nSalva e testa.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 2,
+  "tipo": "educativo",
+  "slides": [
+   "g002_s1.jpg",
+   "g002_s2.jpg",
+   "g002_s3.jpg",
+   "g002_s4.jpg",
+   "g002_s5.jpg",
+   "g002_s6.jpg"
+  ],
+  "legenda": "IA para construir. Regra simples para operar.\n\nSe a IA parar amanhã, o seu processo para junto?\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 3,
+  "tipo": "educativo",
+  "slides": [
+   "g003_s1.jpg",
+   "g003_s2.jpg",
+   "g003_s3.jpg",
+   "g003_s4.jpg",
+   "g003_s5.jpg",
+   "g003_s6.jpg"
+  ],
+  "legenda": "IA não substitui quem pensa. Ela multiplica quem pensa bem.\n\nSegue para ver isso na prática.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 4,
+  "tipo": "educativo",
+  "slides": [
+   "g004_s1.jpg",
+   "g004_s2.jpg",
+   "g004_s3.jpg",
+   "g004_s4.jpg",
+   "g004_s5.jpg",
+   "g004_s6.jpg"
+  ],
+  "legenda": "Segurança não é um recurso extra. É a base.\n\nRevisa o seu hoje.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 5,
+  "tipo": "educativo",
+  "slides": [
+   "g005_s1.jpg",
+   "g005_s2.jpg",
+   "g005_s3.jpg",
+   "g005_s4.jpg",
+   "g005_s5.jpg"
+  ],
+  "legenda": "Aprender a delegar para a IA é a habilidade da década.\n\nComeça por uma tarefa.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 6,
+  "tipo": "educativo",
+  "slides": [
+   "g006_s1.jpg",
+   "g006_s2.jpg",
+   "g006_s3.jpg",
+   "g006_s4.jpg",
+   "g006_s5.jpg",
+   "g006_s6.jpg"
+  ],
+  "legenda": "Serviço: uma entrega por cliente.\nProduto: uma entrega para todos.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 7,
+  "tipo": "educativo",
+  "slides": [
+   "g007_s1.jpg",
+   "g007_s2.jpg",
+   "g007_s3.jpg",
+   "g007_s4.jpg",
+   "g007_s5.jpg",
+   "g007_s6.jpg"
+  ],
+  "legenda": "Hype passa. Sistema que resolve problema fica.\n\nBolha ou revolução? Me conta.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 8,
+  "tipo": "educativo",
+  "slides": [
+   "g008_s1.jpg",
+   "g008_s2.jpg",
+   "g008_s3.jpg",
+   "g008_s4.jpg",
+   "g008_s5.jpg",
+   "g008_s6.jpg"
+  ],
+  "legenda": "Reclamação é pista de produto.\n\nConserta para todos, não só para quem reclamou.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 9,
+  "tipo": "educativo",
+  "slides": [
+   "g009_s1.jpg",
+   "g009_s2.jpg",
+   "g009_s3.jpg",
+   "g009_s4.jpg",
+   "g009_s5.jpg",
+   "g009_s6.jpg"
+  ],
+  "legenda": "Robô bom não é o que faz tudo. É o que avisa quando algo sai do trilho.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 10,
+  "tipo": "educativo",
+  "slides": [
+   "g010_s1.jpg",
+   "g010_s2.jpg",
+   "g010_s3.jpg",
+   "g010_s4.jpg",
+   "g010_s5.jpg",
+   "g010_s6.jpg"
+  ],
+  "legenda": "Todo alerta deveria vir com a solução.\n\nQuais dos seus chegam só com o problema?\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 11,
+  "tipo": "educativo",
+  "slides": [
+   "g011_s1.jpg",
+   "g011_s2.jpg",
+   "g011_s3.jpg",
+   "g011_s4.jpg",
+   "g011_s5.jpg",
+   "g011_s6.jpg",
+   "g011_s7.jpg"
+  ],
+  "legenda": "A IA constrói o que você pede. O difícil é saber pedir.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 12,
+  "tipo": "educativo",
+  "slides": [
+   "g012_s1.jpg",
+   "g012_s2.jpg",
+   "g012_s3.jpg",
+   "g012_s4.jpg",
+   "g012_s5.jpg",
+   "g012_s6.jpg"
+  ],
+  "legenda": "Em vez de agendar, confira.\n\nUm processo que não pode falhar precisa de plantão, não de relógio.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 13,
+  "tipo": "educativo",
+  "slides": [
+   "g013_s1.jpg",
+   "g013_s2.jpg",
+   "g013_s3.jpg",
+   "g013_s4.jpg",
+   "g013_s5.jpg"
+  ],
+  "legenda": "IA com memória rende o dobro.\n\nContexto bem guardado vale mais que prompt bonito.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 14,
+  "tipo": "educativo",
+  "slides": [
+   "g014_s1.jpg",
+   "g014_s2.jpg",
+   "g014_s3.jpg",
+   "g014_s4.jpg",
+   "g014_s5.jpg",
+   "g014_s6.jpg"
+  ],
+  "legenda": "Antes de mexer em produção, saiba como voltar.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 15,
+  "tipo": "educativo",
+  "slides": [
+   "g015_s1.jpg",
+   "g015_s2.jpg",
+   "g015_s3.jpg",
+   "g015_s4.jpg",
+   "g015_s5.jpg"
+  ],
+  "legenda": "Um especialista por função funciona melhor que um generalista para tudo.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 16,
+  "tipo": "educativo",
+  "slides": [
+   "g016_s1.jpg",
+   "g016_s2.jpg",
+   "g016_s3.jpg",
+   "g016_s4.jpg",
+   "g016_s5.jpg",
+   "g016_s6.jpg"
+  ],
+  "legenda": "O que o cliente não vê no login é o que faz ele confiar.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 17,
+  "tipo": "educativo",
+  "slides": [
+   "g017_s1.jpg",
+   "g017_s2.jpg",
+   "g017_s3.jpg",
+   "g017_s4.jpg",
+   "g017_s5.jpg"
+  ],
+  "legenda": "Confiar na IA sem revisar é o erro mais caro de 2026.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 18,
+  "tipo": "educativo",
+  "slides": [
+   "g018_s1.jpg",
+   "g018_s2.jpg",
+   "g018_s3.jpg",
+   "g018_s4.jpg",
+   "g018_s5.jpg"
+  ],
+  "legenda": "Pense em escala desde o primeiro dia.\n\nCorrigir uma vez e valer para todos é o objetivo.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 19,
+  "tipo": "educativo",
+  "slides": [
+   "g019_s1.jpg",
+   "g019_s2.jpg",
+   "g019_s3.jpg",
+   "g019_s4.jpg",
+   "g019_s5.jpg"
+  ],
+  "legenda": "IA é ótima em criar. Quem confere é você.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 20,
+  "tipo": "educativo",
+  "slides": [
+   "g020_s1.jpg",
+   "g020_s2.jpg",
+   "g020_s3.jpg",
+   "g020_s4.jpg",
+   "g020_s5.jpg",
+   "g020_s6.jpg"
+  ],
+  "legenda": "Valide a dor antes de construir a solução.\n\nDez conversas valem mais que dez meses de código.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 21,
+  "tipo": "educativo",
+  "slides": [
+   "g021_s1.jpg",
+   "g021_s2.jpg",
+   "g021_s3.jpg",
+   "g021_s4.jpg",
+   "g021_s5.jpg"
+  ],
+  "legenda": "Fazer ficou barato. Saber o que fazer ficou caro.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 22,
+  "tipo": "educativo",
+  "slides": [
+   "g022_s1.jpg",
+   "g022_s2.jpg",
+   "g022_s3.jpg",
+   "g022_s4.jpg",
+   "g022_s5.jpg",
+   "g022_s6.jpg"
+  ],
+  "legenda": "Regra simples resolve mais do que parece.\n\nIA no que a regra não alcança.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 23,
+  "tipo": "educativo",
+  "slides": [
+   "g023_s1.jpg",
+   "g023_s2.jpg",
+   "g023_s3.jpg",
+   "g023_s4.jpg",
+   "g023_s5.jpg"
+  ],
+  "legenda": "Segurança primeiro. Susto depois, se ainda sobrar.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 24,
+  "tipo": "educativo",
+  "slides": [
+   "g024_s1.jpg",
+   "g024_s2.jpg",
+   "g024_s3.jpg",
+   "g024_s4.jpg",
+   "g024_s5.jpg"
+  ],
+  "legenda": "Você protege o dado de quem nem sabe que você existe.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 25,
+  "tipo": "educativo",
+  "slides": [
+   "g025_s1.jpg",
+   "g025_s2.jpg",
+   "g025_s3.jpg",
+   "g025_s4.jpg",
+   "g025_s5.jpg",
+   "g025_s6.jpg"
+  ],
+  "legenda": "O teste final de um sistema: funcionaria um mês sem mim?\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 26,
+  "tipo": "educativo",
+  "slides": [
+   "g026_s1.jpg",
+   "g026_s2.jpg",
+   "g026_s3.jpg",
+   "g026_s4.jpg",
+   "g026_s5.jpg",
+   "g026_s6.jpg",
+   "g026_s7.jpg"
+  ],
+  "legenda": "Ferramenta boa em processo ruim vira problema mais caro.\n\nProcesso, depois ferramenta, depois IA.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 27,
+  "tipo": "educativo",
+  "slides": [
+   "g027_s1.jpg",
+   "g027_s2.jpg",
+   "g027_s3.jpg",
+   "g027_s4.jpg",
+   "g027_s5.jpg",
+   "g027_s6.jpg"
+  ],
+  "legenda": "Ferramenta que ninguém usa é gasto silencioso.\n\nSalva as 3 perguntas.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 28,
+  "tipo": "educativo",
+  "slides": [
+   "g028_s1.jpg",
+   "g028_s2.jpg",
+   "g028_s3.jpg",
+   "g028_s4.jpg",
+   "g028_s5.jpg",
+   "g028_s6.jpg",
+   "g028_s7.jpg"
+  ],
+  "legenda": "Se você marcou dois sinais, o problema não é esforço. É sistema.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 29,
+  "tipo": "educativo",
+  "slides": [
+   "g029_s1.jpg",
+   "g029_s2.jpg",
+   "g029_s3.jpg",
+   "g029_s4.jpg",
+   "g029_s5.jpg",
+   "g029_s6.jpg"
+  ],
+  "legenda": "Conhecimento que mora numa pessoa só é risco para o negócio.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 30,
+  "tipo": "educativo",
+  "slides": [
+   "g030_s1.jpg",
+   "g030_s2.jpg",
+   "g030_s3.jpg",
+   "g030_s4.jpg",
+   "g030_s5.jpg",
+   "g030_s6.jpg"
+  ],
+  "legenda": "Tarefa repetitiva na mão tem custo, mesmo que ninguém cobre.\n\nRefaz a conta com os seus números.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 31,
+  "tipo": "educativo",
+  "slides": [
+   "g031_s1.jpg",
+   "g031_s2.jpg",
+   "g031_s3.jpg",
+   "g031_s4.jpg",
+   "g031_s5.jpg",
+   "g031_s6.jpg",
+   "g031_s7.jpg"
+  ],
+  "legenda": "Cinco perguntas que todo empresário deveria fazer antes de fechar um sistema.\n\nSalva para a próxima negociação.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 32,
+  "tipo": "educativo",
+  "slides": [
+   "g032_s1.jpg",
+   "g032_s2.jpg",
+   "g032_s3.jpg",
+   "g032_s4.jpg",
+   "g032_s5.jpg",
+   "g032_s6.jpg"
+  ],
+  "legenda": "Três comandos para a IA enxergar o que você já se acostumou a ignorar.\n\nSalva e testa.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 33,
+  "tipo": "educativo",
+  "slides": [
+   "g033_s1.jpg",
+   "g033_s2.jpg",
+   "g033_s3.jpg",
+   "g033_s4.jpg",
+   "g033_s5.jpg",
+   "g033_s6.jpg"
+  ],
+  "legenda": "Automatizar o repetitivo e humanizar o delicado.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 34,
+  "tipo": "educativo",
+  "slides": [
+   "g034_s1.jpg",
+   "g034_s2.jpg",
+   "g034_s3.jpg",
+   "g034_s4.jpg",
+   "g034_s5.jpg",
+   "g034_s6.jpg"
+  ],
+  "legenda": "IA genérica nasce de pedido genérico.\n\nDá contexto, exemplo e tom.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 35,
+  "tipo": "educativo",
+  "slides": [
+   "g035_s1.jpg",
+   "g035_s2.jpg",
+   "g035_s3.jpg",
+   "g035_s4.jpg",
+   "g035_s5.jpg",
+   "g035_s6.jpg"
+  ],
+  "legenda": "Dono indispensável é sinal de processo que não existe.\n\nDocumenta uma tarefa por semana.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 36,
+  "tipo": "educativo",
+  "slides": [
+   "g036_s1.jpg",
+   "g036_s2.jpg",
+   "g036_s3.jpg",
+   "g036_s4.jpg",
+   "g036_s5.jpg",
+   "g036_s6.jpg"
+  ],
+  "legenda": "Plano B não é pessimismo. É maturidade de operação.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 37,
+  "tipo": "educativo",
+  "slides": [
+   "g037_s1.jpg",
+   "g037_s2.jpg",
+   "g037_s3.jpg",
+   "g037_s4.jpg",
+   "g037_s5.jpg",
+   "g037_s6.jpg"
+  ],
+  "legenda": "Erro de sistema em uso é informação de graça.\n\nO difícil é descobrir rápido.\n\n@gustavobaroni.ai"
+ }
+]
