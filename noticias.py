@@ -117,9 +117,16 @@ def redigir(cands, n):
                                 "messages": [{"role": "user", "content": PROMPT.format(n=n, lista=lista)}]}).encode()
             req = urllib.request.Request("https://models.github.ai/inference/chat/completions", data=corpo,
                                          headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json",
-                                                  "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"})
+                                                  "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28",
+                                                  "User-Agent": "noticias-gustavo-baroni"})
             with urllib.request.urlopen(req, timeout=120) as r:
                 bruto = r.read().decode("utf-8", "replace")
+            if '"choices"' not in bruto:  # segunda tentativa com curl (mesmo pedido, outra pilha de rede)
+                import subprocess
+                bruto = subprocess.run(["curl", "-sL", "-X", "POST", "https://models.github.ai/inference/chat/completions",
+                                        "-H", "Accept: application/vnd.github+json", "-H", f"Authorization: Bearer {token}",
+                                        "-H", "X-GitHub-Api-Version: 2022-11-28", "-H", "Content-Type: application/json",
+                                        "-d", corpo.decode()], capture_output=True, text=True, timeout=150).stdout
             try:
                 txt = json.loads(bruto)["choices"][0]["message"]["content"] or ""
             except Exception:
