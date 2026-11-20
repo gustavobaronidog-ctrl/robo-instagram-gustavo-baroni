@@ -94,7 +94,7 @@ for nome, (fila_arq, est_arq, por_dia) in TIPOS.items():
     # atrasados (mais de 90 min depois do horário e ainda não saiu)
     saiu = est.get("por_dia", {}).get(hoje, 0)
     devia = sum(1 for m in slots_do_dia(nome, hoje) if (agora.hour * 60 + agora.minute) >= m + 90)
-    if 7 <= agora.hour < 22 and saiu < devia and (resta > 0 or reserva > 0):
+    if 7 <= agora.hour <= 22 and saiu < devia and (resta > 0 or reserva > 0):
         prob(f"{devia - saiu} post(s) de {nome} atrasado(s) há mais de 90 min (saíram {saiu} de {devia} previstos até agora)",
              f"abra {REPO}/actions/workflows/maestro.yml , clique em 'Run workflow' (à direita) e no botão verde 'Run workflow'. Clique só 1 vez: o robô publica o que estiver atrasado.",
              "abra o Claude e escreva: o robô do Instagram pessoal atrasou os posts, destrave.")
