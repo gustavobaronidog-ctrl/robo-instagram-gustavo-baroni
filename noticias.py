@@ -120,10 +120,51 @@ def chamar_modelo(url, modelo, token, corpo_msgs):
     return status, (resto or saida), r.stderr[:200]
 
 
+def chamar_gemini(modelo, chave, prompt):
+    import subprocess
+    corpo = json.dumps({"contents": [{"parts": [{"text": prompt}]}],
+                        "generationConfig": {"temperature": 0.7, "responseMimeType": "application/json", "maxOutputTokens": 6000}})
+    r = subprocess.run(["curl", "-sS", "-i", "-X", "POST", f"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent",
+                        "-H", f"x-goog-api-key: {chave}", "-H", "Content-Type: application/json", "-d", corpo],
+                       capture_output=True, text=True, timeout=170)
+    saida = r.stdout.replace("\r\n", "\n")
+    cab, _, resto = saida.rpartition("\n\n")
+    status = cab.split("\n")[0] if cab else "sem status"
+    try:
+        txt = json.loads(resto)["candidates"][0]["content"]["parts"][0]["text"]
+    except Exception:
+        txt = ""
+    return status, txt, (resto[:300] if not txt else ""), r.stderr[:150]
+
+
+def validar(txt, n):
+    txt = re.sub(r"^```(?:json)?|```$", "", txt.strip(), flags=re.M).strip()
+    ini, fim = txt.find("{"), txt.rfind("}")
+    posts = json.loads(txt[ini:fim + 1])["posts"]
+    return [p for p in posts if all(p.get(k) for k in ("manchete", "subtitulo", "contexto", "importa", "leitura", "acao", "pergunta", "fonte", "legenda"))][:n]
+
+
 def redigir(cands, n):
     lista = "\n".join(f"{i+1}. [{c['fonte']}] (quente={c['quente']}) {c['titulo']} | {c['resumo'][:260]} | {c['url']}" for i, c in enumerate(cands[:40]))
     token = os.environ.get("GITHUB_TOKEN", "")
-    msgs = [{"role": "user", "content": PROMPT.format(n=n, lista=lista)}]
+    prompt = PROMPT.format(n=n, lista=lista)
+    msgs = [{"role": "user", "content": prompt}]
+    chave = os.environ.get("GEMINI_API_KEY", "").strip()
+    if chave:
+        for modelo in ("gemini-2.5-flash", "gemini-2.0-flash", "gemini-flash-latest"):
+            try:
+                status, txt, corpo, err = chamar_gemini(modelo, chave, prompt)
+                print(f"{modelo} @ gemini: {status} {err}")
+                if not txt:
+                    print(f"  corpo: {corpo!r}")
+                    continue
+                posts = validar(txt, n)
+                if posts:
+                    print(f"redigido com {modelo}: {len(posts)} posts")
+                    return posts
+                print(f"  sem posts válidos: {txt[:200]!r}")
+            except Exception as e:
+                print(f"  erro com {modelo}: {e}")
     tentativas = [("https://models.github.ai/inference/chat/completions", m) for m in ("openai/gpt-4.1", "openai/gpt-4o", "openai/gpt-4.1-mini")] + \
                  [("https://models.inference.ai.azure.com/chat/completions", m) for m in ("gpt-4o", "gpt-4o-mini")]
     for url, modelo in tentativas:
