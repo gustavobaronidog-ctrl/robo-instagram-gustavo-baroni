@@ -102,7 +102,15 @@ def cabecalho(img, draw, escuro):
     draw.text((PAD + 132 + 28, 168), HANDLE, font=fonte(REG, 38), fill=cor_h)
 
 
-def slide(texto, escuro, destino, ultimo=False):
+CTAS = [
+    ("Quer um sistema assim no seu negócio?", "Me chama no direct."),
+    ("Quer ver isso rodando na sua empresa?", "Me chama no direct e segue para mais."),
+    ("Gostou? Segue para mais sistemas e IA", "que funcionam de verdade."),
+    ("Se isso faz sentido para o seu negócio,", "me chama no direct."),
+]
+
+
+def slide(texto, escuro, destino, ultimo=False, idx=0):
     bg = (0, 0, 0) if escuro else (255, 255, 255)
     cor = (255, 255, 255) if escuro else (15, 20, 25)
     img = Image.new("RGB", (W, H), bg)
@@ -116,13 +124,19 @@ def slide(texto, escuro, destino, ultimo=False):
         f = fonte(BOLD, tam)
         linhas = quebrar(draw, texto, f, tam, maxw)
         alt = len(linhas) * int(tam * 1.3)
-        if alt <= H - 400 - 120 or tam <= 44:
+        if alt <= H - 400 - 120 - (200 if ultimo else 0) or tam <= 44:
             break
         tam -= 2
-    y = 330 + max(0, ((H - 330 - 110) - alt) // 2)
+    y = 330 + max(0, ((H - 330 - 110 - (200 if ultimo else 0)) - alt) // 2)
     for ln in linhas:
         escrever(img, draw, PAD, y, ln, f, tam, cor)
         y += int(tam * 1.3)
+    if ultimo:
+        l1, l2 = CTAS[idx % len(CTAS)]
+        cor_div = (47, 51, 54) if escuro else (207, 217, 222)
+        draw.rectangle((PAD, H - 280, W - PAD, H - 277), fill=cor_div)
+        draw.text((PAD, H - 250), l1, font=fonte(BOLD, 40), fill=(29, 155, 240))
+        draw.text((PAD, H - 196), l2, font=fonte(BOLD, 40), fill=cor)
     img.save(destino, "JPEG", quality=93, optimize=True)
 
 
@@ -154,8 +168,10 @@ def main():
         nomes = []
         for k, t in enumerate(slides, start=1):
             nome = f"g{i:03d}_s{k}.jpg"
-            slide(t, bg == "p", os.path.join("imagens", nome), k == len(slides))
+            slide(t, bg == "p", os.path.join("imagens", nome), k == len(slides), i)
             nomes.append(nome)
+        cta = CTAS[i % len(CTAS)]
+        legenda = legenda.replace(f"\n\n{HANDLE}", f"\n\n{cta[0]} {cta[1]}\n\n{HANDLE}")
         fila.append({"carrossel": i, "tipo": "educativo", "slides": nomes, "legenda": legenda})
         print("ok", i, len(nomes), "slides", flush=True)
     json.dump(fila, open("fila.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
