@@ -140,6 +140,15 @@ def main():
         if k < len(antigos):
             POSTS.append(antigos[k])
     os.makedirs("imagens", exist_ok=True)
+    # Lotes novos entram DEPOIS dos já programados (a ordem da fila nunca muda para trás).
+    from conteudo_extra1 import POSTS as E1
+    from conteudo_extra2 import POSTS as E2
+    from conteudo_extra3 import POSTS as E3
+    from conteudo_extra4 import POSTS as E4
+    for k in range(max(len(E1), len(E2), len(E3), len(E4))):
+        for lote in (E1, E2, E3, E4):
+            if k < len(lote):
+                POSTS.append(lote[k])
     fila = []
     for i, (bg, slides, legenda) in enumerate(POSTS, start=1):
         nomes = []
