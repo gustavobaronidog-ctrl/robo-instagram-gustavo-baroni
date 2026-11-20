@@ -100,7 +100,7 @@ def coletar():
 PROMPT = """Você é o Gustavo Baroni, um construtor de sistemas, IA e automação para empresários brasileiros. Escreva em português do Brasil, primeira pessoa, direto, concreto, sem exagero e sem jargão.
 Abaixo estão notícias de IA das últimas 36 horas (com o "quente" = termômetro de repercussão). Escolha exatamente {n} notícias DIFERENTES entre si: priorize o que está bombando AGORA, as polêmicas e o que muda a vida de quem empreende ou constrói com IA. Evite notícia fraca, repetida ou só de produto menor.
 Para cada uma escreva um post em formato de jornal. REGRAS: use só fatos presentes no título/resumo dado; não invente números, nomes nem citações; se não souber, diga o que está em aberto. Não cite empresas ou produtos do Gustavo e não fale de agenda, horário ou salão. Não copie frases da fonte. Sem hashtag.
-Campos (JSON): manchete (até 90 caracteres, estilo manchete de jornal, forte e clara), subtitulo (até 140), contexto (até 330 caracteres: o que aconteceu, objetivo), importa (até 330: por que isso importa para quem empreende), leitura (até 380: a SUA leitura/conclusão como Gustavo, com opinião e um ponto que pouca gente está vendo), acao (até 300: o que o empresário pode fazer com isso esta semana), pergunta (até 110: pergunta aberta que gere comentário, tomando um lado), fonte (nome da fonte), url (link exato dado), legenda (2 a 3 frases curtas que prendem, terminando com a pergunta; sem hashtag).
+Campos (JSON): manchete (até 90 caracteres, estilo manchete de jornal, forte e clara), subtitulo (até 140), contexto (até 330 caracteres: o que aconteceu, objetivo), importa (até 330: por que isso importa para quem empreende), leitura (até 380: a SUA leitura/conclusão como Gustavo, com opinião e um ponto que pouca gente está vendo), acao (até 300: o que o empresário pode fazer com isso esta semana), pergunta (até 110: pergunta aberta que gere comentário, tomando um lado), numeros (lista de 0 a 3 objetos {{\"n\": número ou dado curto com unidade, ex. \"US$ 22 bi\", \"r\": o que o número mede, até 70 caracteres}} usando SOMENTE números que aparecem no título/resumo; se não houver, lista vazia), fonte (nome da fonte), url (link exato dado), legenda (2 a 3 frases curtas que prendem, terminando com a pergunta; sem hashtag).
 Responda SOMENTE um JSON no formato {{"posts":[{{...}},{{...}},{{...}}]}}.
 
 NOTÍCIAS:
@@ -227,14 +227,19 @@ def avatar(tam):
     return a.resize((tam, tam), Image.LANCZOS)
 
 
+VERM, PRETO, BRANCO = (214, 32, 39), (14, 14, 14), (255, 255, 255)
+PAPEL = (250, 247, 240)
+
+
 def moldura(n, total, data_txt):
     im = Image.new("RGB", (W, H), PAPEL)
     d = ImageDraw.Draw(im)
-    d.text((M, 62), "GUSTAVO BARONI · IA & AUTOMAÇÃO", font=f(SANS_B, 25), fill=TINTA)
+    d.rectangle((0, 0, W, 14), fill=VERM)
+    d.text((M, 54), "GUSTAVO BARONI · IA & AUTOMAÇÃO", font=f(SANS_B, 25), fill=TINTA)
     tw = d.textlength(data_txt, font=f(SANS, 25))
-    d.text((W - M - tw, 62), data_txt, font=f(SANS, 25), fill=CINZA)
-    d.rectangle((M, 112, W - M, 118), fill=TINTA)
-    d.rectangle((M, 126, W - M, 128), fill=TINTA)
+    d.text((W - M - tw, 54), data_txt, font=f(SANS, 25), fill=CINZA)
+    d.rectangle((M, 104, W - M, 110), fill=TINTA)
+    d.rectangle((M, 118, W - M, 120), fill=TINTA)
     d.rectangle((M, H - 118, W - M, H - 116), fill=TINTA)
     d.text((M, H - 92), f"{n}/{total}", font=f(SANS_B, 28), fill=TINTA)
     tw = d.textlength(HANDLE, font=f(SANS_B, 28))
@@ -242,52 +247,93 @@ def moldura(n, total, data_txt):
     return im, d
 
 
-def etiqueta(d, txt, x, y, preenchida=True):
-    fnt = f(SANS_B, 30)
-    w = d.textlength(txt, font=fnt) + 44
-    if preenchida:
-        d.rectangle((x, y, x + w, y + 58), fill=AZUL)
-        d.text((x + 22, y + 11), txt, font=fnt, fill=(255, 255, 255))
-    else:
-        d.text((x, y + 11), txt, font=fnt, fill=AZUL)
+def faixa(d, txt, y, cor=VERM, tcor=BRANCO, x=M):
+    fnt = f(SANS_B, 32)
+    w = d.textlength(txt, font=fnt) + 56
+    d.rectangle((x, y, x + w, y + 64), fill=cor)
+    d.text((x + 28, y + 14), txt, font=fnt, fill=tcor)
+    return x + w
+
+
+def rotulo(d, txt, y=156):
+    d.rectangle((M, y, M + 12, y + 46), fill=VERM)
+    d.text((M + 30, y + 4), txt, font=f(SANS_B, 34), fill=TINTA)
+    d.rectangle((M, y + 66, W - M, y + 68), fill=TINTA)
+
+
+def painel_numero(im, d, y, h, numero, legenda):
+    d.rounded_rectangle((M, y, W - M, y + h), radius=28, fill=PRETO)
+    d.rectangle((M, y + 36, M + 14, y + h - 36), fill=VERM)
+    fnt = None
+    for tam in range(min(190, int(h * 0.52)), 60, -6):
+        fnt = f(SERIF_B, tam)
+        if d.textlength(numero, font=fnt) <= W - 2 * M - 90:
+            break
+    d.text((M + 52, y + 30), numero, font=fnt, fill=BRANCO)
+    caixa(d, legenda, SANS_B, M + 52, y + 24 + fnt.size * 1.2, W - 2 * M - 100, h - fnt.size * 1.2 - 40, 32, 22, esp=1.2, cor=(235, 235, 235))
 
 
 def renderizar(p, pasta, prefixo, data_txt):
-    nomes = []
-    total = 5
+    nomes, total = [], 5
+    numeros = p.get("numeros") or []
     # 1 capa
     im, d = moldura(1, total, data_txt)
-    etiqueta(d, "ÚLTIMA HORA", M, 168)
-    y = caixa(d, p["manchete"], SERIF_B, M, 262, W - 2 * M, 560, 112, 60, esp=1.1)
-    d.rectangle((M, y + 22, M + 160, y + 28), fill=AZUL)
-    caixa(d, p["subtitulo"], SERIF_I, M, y + 60, W - 2 * M, 1130 - (y + 60), 44, 30, esp=1.25, cor=CINZA)
+    faixa(d, "● ÚLTIMA HORA", 156)
+    y = caixa(d, p["manchete"], SERIF_B, M, 252, W - 2 * M, 520, 100, 58, esp=1.08)
+    d.rectangle((M, y + 14, M + 170, y + 22), fill=VERM)
+    py = max(y + 52, 800)
+    if numeros:
+        painel_numero(im, d, py, 1130 - py, numeros[0]["n"], numeros[0]["r"])
+    else:
+        d.rounded_rectangle((M, py, W - M, 1130), radius=28, fill=PRETO)
+        d.rectangle((M, py + 36, M + 14, 1130 - 36), fill=VERM)
+        av = avatar(140)
+        im.paste(av, (M + 52, py + 36), av)
+        d.text((M + 222, py + 52), "Minha análise", font=f(SANS_B, 40), fill=BRANCO)
+        d.text((M + 222, py + 106), "Gustavo Baroni · deslize para ler", font=f(SANS, 30), fill=(210, 210, 210))
+        caixa(d, p["subtitulo"], SERIF_I, M + 52, py + 200, W - 2 * M - 100, 1130 - py - 230, 36, 26, esp=1.22, cor=(235, 235, 235))
     d.text((M, H - 190), f"Fonte: {p['fonte']}", font=f(SANS, 28), fill=CINZA)
-    tw = d.textlength("deslize →", font=f(SANS_B, 30))
-    d.text((W - M - tw, H - 190), "deslize →", font=f(SANS_B, 30), fill=AZUL)
+    tw = d.textlength("deslize →", font=f(SANS_B, 32))
+    d.text((W - M - tw, H - 192), "deslize →", font=f(SANS_B, 32), fill=VERM)
     im.save(os.path.join(pasta, f"{prefixo}_s1.jpg"), quality=92); nomes.append(f"{prefixo}_s1.jpg")
-    # 2-4 miolo
-    miolo = [("O QUE ACONTECEU", p["contexto"]), ("POR QUE IMPORTA", p["importa"]), ("MINHA LEITURA", p["leitura"])]
-    for k, (rot, txt) in enumerate(miolo, start=2):
-        im, d = moldura(k, total, data_txt)
-        etiqueta(d, rot, M, 168, preenchida=False)
-        d.rectangle((M, 232, W - M, 234), fill=AZUL)
-        topo = 280
-        if rot == "MINHA LEITURA":
-            im.paste(avatar(96), (M, 262), avatar(96))
-            d.text((M + 118, 280), "Gustavo Baroni", font=f(SANS_B, 34), fill=TINTA)
-            d.text((M + 118, 322), HANDLE, font=f(SANS, 26), fill=CINZA)
-            topo = 400
-        caixa(d, txt, SERIF, M, topo, W - 2 * M, H - 160 - topo, 58, 36, esp=1.32)
-        im.save(os.path.join(pasta, f"{prefixo}_s{k}.jpg"), quality=92); nomes.append(f"{prefixo}_s{k}.jpg")
+    # 2 o que aconteceu (+ números)
+    im, d = moldura(2, total, data_txt)
+    rotulo(d, "O QUE ACONTECEU")
+    ty = 262
+    if len(numeros) > 1:
+        for k, nm in enumerate(numeros[1:3]):
+            painel_numero(im, d, 262 + k * 270, 240, nm["n"], nm["r"])
+        ty = 262 + len(numeros[1:3]) * 270 + 10
+        caixa(d, p["contexto"], SERIF, M, ty, W - 2 * M, H - 140 - ty, 44, 30, esp=1.28)
+    else:
+        caixa(d, p["contexto"], SERIF, M, ty, W - 2 * M, H - 160 - ty, 58, 36, esp=1.32)
+    im.save(os.path.join(pasta, f"{prefixo}_s2.jpg"), quality=92); nomes.append(f"{prefixo}_s2.jpg")
+    # 3 por que importa (bloco destacado)
+    im, d = moldura(3, total, data_txt)
+    rotulo(d, "POR QUE IMPORTA")
+    d.rounded_rectangle((M, 262, W - M, H - 170), radius=28, fill=PRETO)
+    d.text((M + 44, 280), "\u201c", font=f(SERIF_B, 220), fill=VERM)
+    caixa(d, p["importa"], SERIF_B, M + 52, 470, W - 2 * M - 104, H - 170 - 470 - 40, 64, 34, esp=1.28, cor=BRANCO)
+    im.save(os.path.join(pasta, f"{prefixo}_s3.jpg"), quality=92); nomes.append(f"{prefixo}_s3.jpg")
+    # 4 minha leitura (foto grande)
+    im, d = moldura(4, total, data_txt)
+    rotulo(d, "MINHA LEITURA")
+    av = avatar(190)
+    im.paste(av, (M, 262), av)
+    d.ellipse((M - 6, 256, M + 196, 458), outline=VERM, width=6)
+    d.text((M + 230, 300), "Gustavo Baroni", font=f(SANS_B, 46), fill=TINTA)
+    d.text((M + 230, 360), HANDLE, font=f(SANS, 30), fill=CINZA)
+    faixa(d, "ANÁLISE", 408 - 12, x=M + 230)
+    caixa(d, p["leitura"], SERIF, M, 500, W - 2 * M, H - 160 - 500, 52, 34, esp=1.3)
+    im.save(os.path.join(pasta, f"{prefixo}_s4.jpg"), quality=92); nomes.append(f"{prefixo}_s4.jpg")
     # 5 ação + pergunta
     im, d = moldura(5, total, data_txt)
-    etiqueta(d, "O QUE FAZER ESTA SEMANA", M, 168, preenchida=False)
-    d.rectangle((M, 232, W - M, 234), fill=AZUL)
-    y = caixa(d, p["acao"], SERIF, M, 280, W - 2 * M, 430, 50, 34, esp=1.3)
-    d.rectangle((M, 770, W - M, 776), fill=TINTA)
-    caixa(d, p["pergunta"], SERIF_B, M, 810, W - 2 * M, 300, 62, 38, esp=1.18)
-    d.text((M, 1120), "Responde nos comentários. Eu leio todos.", font=f(SANS_B, 30), fill=AZUL)
-    d.text((M, 1168), "Segue para ver o que muda antes de virar tendência.", font=f(SANS, 28), fill=CINZA)
+    rotulo(d, "O QUE FAZER ESTA SEMANA")
+    caixa(d, p["acao"], SERIF, M, 262, W - 2 * M, 400, 50, 34, esp=1.3)
+    d.rounded_rectangle((M, 690, W - M, 1100), radius=28, fill=VERM)
+    caixa(d, p["pergunta"], SERIF_B, M + 44, 730, W - 2 * M - 88, 330, 64, 38, esp=1.16, cor=BRANCO)
+    d.text((M, 1130), "Responde nos comentários. Eu leio todos.", font=f(SANS_B, 30), fill=VERM)
+    d.text((M, 1176), "Segue para ver o que muda antes de virar tendência.", font=f(SANS, 28), fill=CINZA)
     im.save(os.path.join(pasta, f"{prefixo}_s5.jpg"), quality=92); nomes.append(f"{prefixo}_s5.jpg")
     return nomes
 

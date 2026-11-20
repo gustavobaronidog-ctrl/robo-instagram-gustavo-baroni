@@ -10,8 +10,8 @@
    "n20261120_001_s4.jpg",
    "n20261120_001_s5.jpg"
   ],
-  "legenda": "Uma empresa de IA abriu capital e já vale mais de US$ 1 trilhão, enquanto o mercado caiu. Isso é sinal de força ou de bolha? E o que muda para quem usa essas ferramentas no negócio?\n\nFonte: CNN\n\n@gustavobaroni.ai",
-  "url": "https://cnn.com/2026/11/19/business/live-news/anthropic-ipo"
+  "legenda": "A ElevenLabs, que era sinônimo de voz de IA, acabou de lançar 13 novidades para empresas. Atendimento por voz com IA está ficando acessível. Você deixaria uma IA atender seus clientes?\n\nFonte: Unite.AI e The Next Web\n\n@gustavobaroni.ai",
+  "url": "https://unite.ai/elevenlabs-unveils-model-customization-elevenai-and-partner-program"
  },
  {
   "noticia": 2,
@@ -24,8 +24,8 @@
    "n20261120_002_s4.jpg",
    "n20261120_002_s5.jpg"
   ],
-  "legenda": "O dicionário Cambridge escolheu \"humano\" como palavra do ano, por causa da IA. Coincidência ou recado? Quem vence daqui pra frente: a máquina ou quem sabe usá-la?\n\nFonte: NBC News\n\n@gustavobaroni.ai",
-  "url": "https://www.nbcnews.com/artificial-intelligence"
+  "legenda": "Uma empresa de IA abriu capital e já vale mais de US$ 1 trilhão, enquanto o mercado caiu. Isso é sinal de força ou de bolha? E o que muda para quem usa essas ferramentas no negócio?\n\nFonte: CNN\n\n@gustavobaroni.ai",
+  "url": "https://cnn.com/2026/11/19/business/live-news/anthropic-ipo"
  },
  {
   "noticia": 3,
@@ -37,6 +37,20 @@
    "n20261120_003_s3.jpg",
    "n20261120_003_s4.jpg",
    "n20261120_003_s5.jpg"
+  ],
+  "legenda": "O dicionário Cambridge escolheu \"humano\" como palavra do ano, por causa da IA. Coincidência ou recado? Quem vence daqui pra frente: a máquina ou quem sabe usá-la?\n\nFonte: NBC News\n\n@gustavobaroni.ai",
+  "url": "https://www.nbcnews.com/artificial-intelligence"
+ },
+ {
+  "noticia": 4,
+  "tipo": "noticia",
+  "data": "2026-11-20",
+  "slides": [
+   "n20261120_004_s1.jpg",
+   "n20261120_004_s2.jpg",
+   "n20261120_004_s3.jpg",
+   "n20261120_004_s4.jpg",
+   "n20261120_004_s5.jpg"
   ],
   "legenda": "Um estado americano processou a OpenAI por falta de proteções nos modelos. Se a IA erra com o seu cliente, a culpa é de quem criou ou de quem usou?\n\nFonte: NBC News\n\n@gustavobaroni.ai",
   "url": "https://www.nbcnews.com/artificial-intelligence"
