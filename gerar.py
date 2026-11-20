@@ -87,19 +87,19 @@ def escrever(img, draw, x, y, linha, f, tam, cor):
     draw.text((cx, y), linha[pos:], font=f, fill=cor)
 
 
-def cabecalho(img, draw, escuro):
+def cabecalho(img, draw, escuro, y0=96):
     cor_nome = (255, 255, 255) if escuro else (15, 20, 25)
     cor_h = (113, 118, 123) if escuro else (83, 100, 113)
     av = avatar(132)
-    img.paste(av, (PAD, 96), av)
+    img.paste(av, (PAD, y0), av)
     fn = fonte(BOLD, 46)
-    draw.text((PAD + 132 + 28, 110), NOME, font=fn, fill=cor_nome)
+    draw.text((PAD + 132 + 28, y0 + 14), NOME, font=fn, fill=cor_nome)
     nw = draw.textlength(NOME, font=fn)
     # selo azul com check
-    cx, cy, r = PAD + 132 + 28 + nw + 30, 134, 19
+    cx, cy, r = PAD + 132 + 28 + nw + 30, y0 + 38, 19
     draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(29, 155, 240))
     draw.line([(cx - 9, cy + 1), (cx - 3, cy + 8), (cx + 10, cy - 8)], fill=(255, 255, 255), width=5, joint="curve")
-    draw.text((PAD + 132 + 28, 168), HANDLE, font=fonte(REG, 38), fill=cor_h)
+    draw.text((PAD + 132 + 28, y0 + 72), HANDLE, font=fonte(REG, 38), fill=cor_h)
 
 
 CTAS = [
@@ -115,19 +115,23 @@ def slide(texto, escuro, destino, ultimo=False, idx=0):
     cor = (255, 255, 255) if escuro else (15, 20, 25)
     img = Image.new("RGB", (W, H), bg)
     draw = ImageDraw.Draw(img)
-    cabecalho(img, draw, escuro)
     # tamanho da fonte conforme o tamanho do texto (maior para frases curtas)
     n = len(texto)
     tam = 78 if n < 70 else 70 if n < 120 else 64 if n < 170 else 58
     maxw = W - 2 * PAD
+    reserva_cta = 200 if ultimo else 0
+    CAB, GAP = 132, 44  # altura do cabeçalho e espaço até o texto (como um post de Twitter)
     while True:
         f = fonte(BOLD, tam)
         linhas = quebrar(draw, texto, f, tam, maxw)
         alt = len(linhas) * int(tam * 1.3)
-        if alt <= H - 400 - 120 - (200 if ultimo else 0) or tam <= 44:
+        if CAB + GAP + alt <= H - 150 - 110 - reserva_cta or tam <= 44:
             break
         tam -= 2
-    y = 330 + max(0, ((H - 330 - 110 - (200 if ultimo else 0)) - alt) // 2)
+    area_top, area_bot = 70, H - 110 - reserva_cta
+    y0 = area_top + max(0, (area_bot - area_top - (CAB + GAP + alt)) // 2)
+    cabecalho(img, draw, escuro, y0)
+    y = y0 + CAB + GAP
     for ln in linhas:
         escrever(img, draw, PAD, y, ln, f, tam, cor)
         y += int(tam * 1.3)

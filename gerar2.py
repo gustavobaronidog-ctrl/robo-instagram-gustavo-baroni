@@ -32,17 +32,19 @@ def fundo_esfumacado(seed):
 def slide_reflexao(texto, destino, seed):
     img = fundo_esfumacado(seed)
     draw = ImageDraw.Draw(img)
-    G.cabecalho(img, draw, True)
     maxw = W - 2 * G.PAD
     tam = 92
+    CAB, GAP = 132, 44
     while True:
         f = G.fonte(G.BOLD, tam)
         linhas = G.quebrar(draw, texto, f, tam, maxw)
         alt = len(linhas) * int(tam * 1.3)
-        if alt <= H - 640 or tam <= 48:
+        if CAB + GAP + alt + 40 <= H - 300 or tam <= 48:
             break
         tam -= 2
-    y = 330 + max(0, (H - 330 - 200 - alt) // 2)
+    y0 = 70 + max(0, (H - 70 - 110 - (CAB + GAP + alt + 40)) // 2)
+    G.cabecalho(img, draw, True, y0)
+    y = y0 + CAB + GAP
     for ln in linhas:
         draw.text((G.PAD, y), ln, font=f, fill=(255, 255, 255))
         y += int(tam * 1.3)
