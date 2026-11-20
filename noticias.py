@@ -131,7 +131,7 @@ def chamar_gemini(modelo, chave, prompt):
                         "generationConfig": {"temperature": 0.7, "responseMimeType": "application/json", "maxOutputTokens": 6000}})
     r = subprocess.run(["curl", "-sS", "-i", "-X", "POST", f"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent",
                         "-H", f"x-goog-api-key: {chave}", "-H", "Content-Type: application/json", "-d", corpo],
-                       capture_output=True, text=True, timeout=170)
+                       capture_output=True, text=True, timeout=120)
     saida = r.stdout.replace("\r\n", "\n")
     cab, _, resto = saida.rpartition("\n\n")
     status = cab.split("\n")[0] if cab else "sem status"
@@ -140,6 +140,25 @@ def chamar_gemini(modelo, chave, prompt):
     except Exception:
         txt = ""
     return status, txt, (resto[:300] if not txt else ""), r.stderr[:150]
+
+
+def modelos_gemini(chave):
+    """Modelos flash que a chave pode usar (a lista do Google muda; o robô descobre sozinho)."""
+    import subprocess
+    achados = []
+    try:
+        r = subprocess.run(["curl", "-sS", "https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", "-H", f"x-goog-api-key: {chave}"],
+                           capture_output=True, text=True, timeout=60)
+        for m in json.loads(r.stdout).get("models", []):
+            nome = m["name"].split("/")[-1]
+            if "flash" in nome and "lite" not in nome and "generateContent" in m.get("supportedGenerationMethods", []) \
+                    and not any(x in nome for x in ("image", "tts", "audio", "live", "thinking", "preview-0", "exp")):
+                achados.append(nome)
+    except Exception as e:
+        print(f"  não consegui listar os modelos: {e}")
+    achados.sort(key=lambda n: [int(x) if x.isdigit() else 0 for x in re.findall(r"\d+", n)], reverse=True)
+    print("modelos flash disponíveis:", achados[:6])
+    return achados[:3]
 
 
 def validar(txt, n):
@@ -156,7 +175,7 @@ def redigir(cands, n):
     msgs = [{"role": "user", "content": prompt}]
     chave = os.environ.get("GEMINI_API_KEY", "").strip()
     if chave:
-        for modelo in ("gemini-2.5-flash", "gemini-2.0-flash", "gemini-flash-latest"):
+        for modelo in dict.fromkeys(["gemini-3.8-flash"] + modelos_gemini(chave) + ["gemini-flash-latest"]):
             try:
                 status, txt, corpo, err = chamar_gemini(modelo, chave, prompt)
                 print(f"{modelo} @ gemini: {status} {err}")
