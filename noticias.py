@@ -107,46 +107,44 @@ NOTÍCIAS:
 {lista}"""
 
 
+def chamar_modelo(url, modelo, token, corpo_msgs):
+    """Chama um endpoint de chat/completions com curl -i e devolve (status, corpo)."""
+    import subprocess
+    corpo = json.dumps({"model": modelo, "temperature": 0.7, "max_tokens": 4000, "messages": corpo_msgs})
+    r = subprocess.run(["curl", "-sS", "-i", "-L", "-X", "POST", url, "-H", f"Authorization: Bearer {token}",
+                        "-H", "Content-Type: application/json", "-H", "Accept: application/json",
+                        "-H", "User-Agent: noticias-gustavo-baroni", "-d", corpo], capture_output=True, text=True, timeout=170)
+    saida = r.stdout.replace("\r\n", "\n")
+    cab, _, resto = saida.rpartition("\n\n")
+    status = cab.split("\n")[0] if cab else "sem status"
+    return status, (resto or saida), r.stderr[:200]
+
+
 def redigir(cands, n):
     lista = "\n".join(f"{i+1}. [{c['fonte']}] (quente={c['quente']}) {c['titulo']} | {c['resumo'][:260]} | {c['url']}" for i, c in enumerate(cands[:40]))
     token = os.environ.get("GITHUB_TOKEN", "")
-    ultimo = None
-    for modelo in ["openai/gpt-4.1", "openai/gpt-4o", "openai/gpt-4.1-mini"]:
+    msgs = [{"role": "user", "content": PROMPT.format(n=n, lista=lista)}]
+    tentativas = [("https://models.github.ai/inference/chat/completions", m) for m in ("openai/gpt-4.1", "openai/gpt-4o", "openai/gpt-4.1-mini")] + \
+                 [("https://models.inference.ai.azure.com/chat/completions", m) for m in ("gpt-4o", "gpt-4o-mini")]
+    for url, modelo in tentativas:
         try:
-            corpo = json.dumps({"model": modelo, "temperature": 0.7, "max_tokens": 4000,
-                                "messages": [{"role": "user", "content": PROMPT.format(n=n, lista=lista)}]}).encode()
-            req = urllib.request.Request("https://models.github.ai/inference/chat/completions", data=corpo,
-                                         headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json",
-                                                  "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28",
-                                                  "User-Agent": "noticias-gustavo-baroni"})
-            with urllib.request.urlopen(req, timeout=120) as r:
-                bruto = r.read().decode("utf-8", "replace")
-            if '"choices"' not in bruto:  # segunda tentativa com curl (mesmo pedido, outra pilha de rede)
-                import subprocess
-                bruto = subprocess.run(["curl", "-sL", "-X", "POST", "https://models.github.ai/inference/chat/completions",
-                                        "-H", "Accept: application/vnd.github+json", "-H", f"Authorization: Bearer {token}",
-                                        "-H", "X-GitHub-Api-Version: 2022-11-28", "-H", "Content-Type: application/json",
-                                        "-d", corpo.decode()], capture_output=True, text=True, timeout=150).stdout
-            try:
-                txt = json.loads(bruto)["choices"][0]["message"]["content"] or ""
-            except Exception:
-                print(f"resposta bruta de {modelo}: {bruto[:400]!r}")
-                raise
+            status, bruto, err = chamar_modelo(url, modelo, token, msgs)
+            print(f"{modelo} @ {url.split('/')[2]}: {status} {err}")
+            if '"choices"' not in bruto:
+                print(f"  corpo: {bruto[:300]!r}")
+                continue
+            txt = json.loads(bruto)["choices"][0]["message"]["content"] or ""
             txt = re.sub(r"^```(?:json)?|```$", "", txt.strip(), flags=re.M).strip()
             ini, fim = txt.find("{"), txt.rfind("}")
-            try:
-                posts = json.loads(txt[ini:fim + 1])["posts"]
-            except Exception:
-                print(f"texto do modelo {modelo}: {txt[:400]!r}")
-                raise
+            posts = json.loads(txt[ini:fim + 1])["posts"]
             posts = [p for p in posts if all(p.get(k) for k in ("manchete", "subtitulo", "contexto", "importa", "leitura", "acao", "pergunta", "fonte", "legenda"))]
-            if len(posts) >= 1:
+            if posts:
                 print(f"redigido com {modelo}: {len(posts)} posts")
                 return posts[:n]
+            print(f"  texto sem posts válidos: {txt[:200]!r}")
         except Exception as e:
-            ultimo = e
-            print(f"modelo {modelo} falhou: {e}")
-    raise SystemExit(f"nenhum modelo respondeu: {ultimo}")
+            print(f"  erro com {modelo}: {e}")
+    raise SystemExit("nenhum modelo respondeu")
 
 
 # ---------- imagens (formato jornal) ----------
