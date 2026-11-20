@@ -36,6 +36,7 @@ jobs:
           IG_APP_ID: ${{ vars.IG_APP_ID }}
           IG_REDIRECT: ${{ vars.IG_REDIRECT }}
           IG_USERNAME: gustavobaroni.ai
+          IG_USER_ID: "17841478387226769"
         run: |
           git config user.name "robo-gustavo-baroni"
           git config user.email "robo@gustavobaroni.local"
