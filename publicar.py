@@ -102,7 +102,7 @@ def publicar(fila_arq, estado_arq):
         print(f"Fila {fila_arq} terminada: nada a publicar. AVISO: criar mais conteúdo.", flush=True)
         return False
     item = fila[i]
-    print(f"Publicando {fila_arq} #{item['carrossel']} (posição {i+1}/{len(fila)})", flush=True)
+    print(f"Publicando {fila_arq} #{item.get('carrossel', item.get('noticia', i + 1))} (posição {i+1}/{len(fila)})", flush=True)
     filhos = [chamar(f"{IG}/media", {"image_url": BASE + n, "is_carousel_item": "true"})["id"] for n in item["slides"]]
     for c in filhos:
         esperar_pronto(c)

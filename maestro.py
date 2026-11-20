@@ -60,6 +60,10 @@ def main():
             break
         sh("git pull --rebase -q")
         try:
+            import importlib; importlib.reload(P)  # pega correções novas sem esperar a próxima rodada
+        except Exception as e:
+            print(f"reload falhou: {e}", flush=True)
+        try:
             erro = conferir(minutos)
         except Exception as e:
             print(f"ERRO na conferência: {e}", flush=True)
