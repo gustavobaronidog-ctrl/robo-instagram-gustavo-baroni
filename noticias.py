@@ -236,19 +236,67 @@ VERM, PRETO, BRANCO = (214, 32, 39), (14, 14, 14), (255, 255, 255)
 PAPEL = (250, 247, 240)
 
 
-def moldura(n, total, data_txt):
-    im = Image.new("RGB", (W, H), PAPEL)
+def arte_fundo(seed, forte=True):
+    """Fundo diagramado escuro (rede de nós, grade e brilho vermelho), sem depender de imagens externas."""
+    import random
+    from PIL import ImageFilter
+    rnd = random.Random(seed)
+    base = Image.new("RGB", (W, H), (9, 9, 13))
+    g = ImageDraw.Draw(base)
+    for y in range(H):
+        t = y / H
+        g.line((0, y, W, y), fill=(int(10 + 26 * t), int(10 + 4 * t), int(14 + 6 * t)))
+    brilho = Image.new("RGB", (W, H), (0, 0, 0))
+    bd = ImageDraw.Draw(brilho)
+    for _ in range(3):
+        cx, cy, r = rnd.randint(150, 930), rnd.randint(150, 1200), rnd.randint(260, 420)
+        bd.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(150, 20, 28))
+    brilho = brilho.filter(ImageFilter.GaussianBlur(150))
+    base = Image.blend(base, Image.composite(brilho, base, brilho.convert("L")), 0.55)
+    ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    o = ImageDraw.Draw(ov)
+    for x in range(0, W, 90):
+        o.line((x, 0, x, H), fill=(255, 255, 255, 14))
+    for y in range(0, H, 90):
+        o.line((0, y, W, y), fill=(255, 255, 255, 14))
+    nos = [(rnd.randint(40, W - 40), rnd.randint(140, H - 140)) for _ in range(26 if forte else 16)]
+    for i, p1 in enumerate(nos):
+        for p2 in sorted(nos, key=lambda q: (q[0] - p1[0]) ** 2 + (q[1] - p1[1]) ** 2)[1:3]:
+            o.line((p1, p2), fill=(255, 255, 255, 46), width=2)
+    for (x, y) in nos:
+        r = rnd.choice([5, 7, 10])
+        cor = (232, 52, 58, 230) if rnd.random() < 0.3 else (255, 255, 255, 170)
+        o.ellipse((x - r, y - r, x + r, y + r), fill=cor)
+    base.paste(ov, (0, 0), ov)
+    pel = Image.new("RGBA", (W, H), (0, 0, 0, 95 if forte else 140))
+    base.paste(pel, (0, 0), pel)
+    return base
+
+
+def bloco(im, box, cor=(0, 0, 0), alpha=255, raio=28):
+    ov = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    ImageDraw.Draw(ov).rounded_rectangle(box, radius=raio, fill=cor + (alpha,))
+    im.paste(ov, (0, 0), ov)
+
+
+def moldura(n, total, data_txt, escuro=False, seed=0):
+    if escuro:
+        im = arte_fundo(seed, forte=(n == 1))
+        fg, mut = BRANCO, (200, 200, 205)
+    else:
+        im = Image.new("RGB", (W, H), PAPEL)
+        fg, mut = TINTA, CINZA
     d = ImageDraw.Draw(im)
     d.rectangle((0, 0, W, 14), fill=VERM)
-    d.text((M, 54), "GUSTAVO BARONI · IA & AUTOMAÇÃO", font=f(SANS_B, 25), fill=TINTA)
+    d.text((M, 54), "GUSTAVO BARONI · IA & AUTOMAÇÃO", font=f(SANS_B, 25), fill=fg)
     tw = d.textlength(data_txt, font=f(SANS, 25))
-    d.text((W - M - tw, 54), data_txt, font=f(SANS, 25), fill=CINZA)
-    d.rectangle((M, 104, W - M, 110), fill=TINTA)
-    d.rectangle((M, 118, W - M, 120), fill=TINTA)
-    d.rectangle((M, H - 118, W - M, H - 116), fill=TINTA)
-    d.text((M, H - 92), f"{n}/{total}", font=f(SANS_B, 28), fill=TINTA)
+    d.text((W - M - tw, 54), data_txt, font=f(SANS, 25), fill=mut)
+    d.rectangle((M, 104, W - M, 110), fill=fg)
+    d.rectangle((M, 118, W - M, 120), fill=fg)
+    d.rectangle((M, H - 118, W - M, H - 116), fill=fg)
+    d.text((M, H - 92), f"{n}/{total}", font=f(SANS_B, 28), fill=fg)
     tw = d.textlength(HANDLE, font=f(SANS_B, 28))
-    d.text((W - M - tw, H - 92), HANDLE, font=f(SANS_B, 28), fill=TINTA)
+    d.text((W - M - tw, H - 92), HANDLE, font=f(SANS_B, 28), fill=fg)
     return im, d
 
 
@@ -260,14 +308,17 @@ def faixa(d, txt, y, cor=VERM, tcor=BRANCO, x=M):
     return x + w
 
 
-def rotulo(d, txt, y=156):
+def rotulo(d, txt, y=156, fg=TINTA):
     d.rectangle((M, y, M + 12, y + 46), fill=VERM)
-    d.text((M + 30, y + 4), txt, font=f(SANS_B, 34), fill=TINTA)
-    d.rectangle((M, y + 66, W - M, y + 68), fill=TINTA)
+    d.text((M + 30, y + 4), txt, font=f(SANS_B, 34), fill=fg)
+    d.rectangle((M, y + 66, W - M, y + 68), fill=fg)
 
 
-def painel_numero(im, d, y, h, numero, legenda):
-    d.rounded_rectangle((M, y, W - M, y + h), radius=28, fill=PRETO)
+def painel_numero(im, d, y, h, numero, legenda, escuro=False):
+    if escuro:
+        bloco(im, (M, y, W - M, y + h), (0, 0, 0), 190)
+    else:
+        d.rounded_rectangle((M, y, W - M, y + h), radius=28, fill=PRETO)
     d.rectangle((M, y + 36, M + 14, y + h - 36), fill=VERM)
     fnt = None
     for tam in range(min(190, int(h * 0.52)), 60, -6):
@@ -278,67 +329,90 @@ def painel_numero(im, d, y, h, numero, legenda):
     caixa(d, legenda, SANS_B, M + 52, y + 24 + fnt.size * 1.2, W - 2 * M - 100, h - fnt.size * 1.2 - 40, 32, 22, esp=1.2, cor=(235, 235, 235))
 
 
-def renderizar(p, pasta, prefixo, data_txt):
+def altura_texto(d, texto, path, maxw, ini, minimo, maxh, esp):
+    for tam in range(ini, minimo - 1, -2):
+        linhas = quebrar(d, texto, f(path, tam), maxw)
+        if len(linhas) * tam * esp <= maxh or tam <= minimo:
+            break
+    return tam, len(linhas) * tam * esp
+
+
+def renderizar(p, pasta, prefixo, data_txt, escuro=False):
     nomes, total = [], 5
     numeros = p.get("numeros") or []
+    seed = sum(ord(c) for c in p["manchete"])
+    fg = BRANCO if escuro else TINTA
+    mut = (200, 200, 205) if escuro else CINZA
     # 1 capa
-    im, d = moldura(1, total, data_txt)
+    im, d = moldura(1, total, data_txt, escuro, seed)
     faixa(d, "● ÚLTIMA HORA", 156)
-    y = caixa(d, p["manchete"], SERIF_B, M, 252, W - 2 * M, 520, 100, 58, esp=1.08)
+    y = caixa(d, p["manchete"], SERIF_B, M, 252, W - 2 * M, 520, 100, 58, esp=1.08, cor=fg)
     d.rectangle((M, y + 14, M + 170, y + 22), fill=VERM)
     py = max(y + 52, 800)
     if numeros:
-        painel_numero(im, d, py, 1130 - py, numeros[0]["n"], numeros[0]["r"])
+        painel_numero(im, d, py, 1130 - py, numeros[0]["n"], numeros[0]["r"], escuro)
     else:
-        d.rounded_rectangle((M, py, W - M, 1130), radius=28, fill=PRETO)
+        if escuro:
+            bloco(im, (M, py, W - M, 1130), (0, 0, 0), 190)
+        else:
+            d.rounded_rectangle((M, py, W - M, 1130), radius=28, fill=PRETO)
         d.rectangle((M, py + 36, M + 14, 1130 - 36), fill=VERM)
         av = avatar(140)
         im.paste(av, (M + 52, py + 36), av)
         d.text((M + 222, py + 52), "Minha análise", font=f(SANS_B, 40), fill=BRANCO)
         d.text((M + 222, py + 106), "Gustavo Baroni · deslize para ler", font=f(SANS, 30), fill=(210, 210, 210))
         caixa(d, p["subtitulo"], SERIF_I, M + 52, py + 200, W - 2 * M - 100, 1130 - py - 230, 36, 26, esp=1.22, cor=(235, 235, 235))
-    d.text((M, H - 190), f"Fonte: {p['fonte']}", font=f(SANS, 28), fill=CINZA)
+    d.text((M, H - 190), f"Fonte: {p['fonte']}", font=f(SANS, 28), fill=mut)
     tw = d.textlength("deslize →", font=f(SANS_B, 32))
-    d.text((W - M - tw, H - 192), "deslize →", font=f(SANS_B, 32), fill=VERM)
+    d.text((W - M - tw, H - 192), "deslize →", font=f(SANS_B, 32), fill=(240, 70, 76) if escuro else VERM)
     im.save(os.path.join(pasta, f"{prefixo}_s1.jpg"), quality=92); nomes.append(f"{prefixo}_s1.jpg")
     # 2 o que aconteceu (+ números)
-    im, d = moldura(2, total, data_txt)
-    rotulo(d, "O QUE ACONTECEU")
+    im, d = moldura(2, total, data_txt, escuro, seed + 1)
+    rotulo(d, "O QUE ACONTECEU", fg=fg)
     ty = 262
     if len(numeros) > 1:
         for k, nm in enumerate(numeros[1:3]):
-            painel_numero(im, d, 262 + k * 270, 240, nm["n"], nm["r"])
+            painel_numero(im, d, 262 + k * 270, 240, nm["n"], nm["r"], escuro)
         ty = 262 + len(numeros[1:3]) * 270 + 10
-        caixa(d, p["contexto"], SERIF, M, ty, W - 2 * M, H - 140 - ty, 44, 30, esp=1.28)
+        caixa(d, p["contexto"], SERIF, M, ty, W - 2 * M, H - 140 - ty, 44, 30, esp=1.28, cor=fg)
     else:
-        caixa(d, p["contexto"], SERIF, M, ty, W - 2 * M, H - 160 - ty, 58, 36, esp=1.32)
+        caixa(d, p["contexto"], SERIF, M, ty, W - 2 * M, H - 160 - ty, 58, 36, esp=1.32, cor=fg)
     im.save(os.path.join(pasta, f"{prefixo}_s2.jpg"), quality=92); nomes.append(f"{prefixo}_s2.jpg")
     # 3 por que importa (bloco destacado)
-    im, d = moldura(3, total, data_txt)
-    rotulo(d, "POR QUE IMPORTA")
-    d.rounded_rectangle((M, 262, W - M, H - 170), radius=28, fill=PRETO)
+    im, d = moldura(3, total, data_txt, escuro, seed + 2)
+    rotulo(d, "POR QUE IMPORTA", fg=fg)
+    if escuro:
+        bloco(im, (M, 262, W - M, H - 170), (0, 0, 0), 175)
+        d.rectangle((M, 300, M + 12, H - 208), fill=VERM)
+    else:
+        d.rounded_rectangle((M, 262, W - M, H - 170), radius=28, fill=PRETO)
     d.text((M + 44, 280), "\u201c", font=f(SERIF_B, 220), fill=VERM)
     caixa(d, p["importa"], SERIF_B, M + 52, 470, W - 2 * M - 104, H - 170 - 470 - 40, 64, 34, esp=1.28, cor=BRANCO)
     im.save(os.path.join(pasta, f"{prefixo}_s3.jpg"), quality=92); nomes.append(f"{prefixo}_s3.jpg")
-    # 4 minha leitura (foto grande)
-    im, d = moldura(4, total, data_txt)
-    rotulo(d, "MINHA LEITURA")
+    # 4 minha leitura
+    im, d = moldura(4, total, data_txt, escuro, seed + 3)
+    rotulo(d, "MINHA LEITURA", fg=fg)
     av = avatar(190)
     im.paste(av, (M, 262), av)
     d.ellipse((M - 6, 256, M + 196, 458), outline=VERM, width=6)
-    d.text((M + 230, 300), "Gustavo Baroni", font=f(SANS_B, 46), fill=TINTA)
-    d.text((M + 230, 360), HANDLE, font=f(SANS, 30), fill=CINZA)
+    d.text((M + 230, 300), "Gustavo Baroni", font=f(SANS_B, 46), fill=fg)
+    d.text((M + 230, 360), HANDLE, font=f(SANS, 30), fill=mut)
     faixa(d, "ANÁLISE", 408 - 12, x=M + 230)
-    caixa(d, p["leitura"], SERIF, M, 500, W - 2 * M, H - 160 - 500, 52, 34, esp=1.3)
+    caixa(d, p["leitura"], SERIF, M, 500, W - 2 * M, H - 160 - 500, 52, 34, esp=1.3, cor=fg)
     im.save(os.path.join(pasta, f"{prefixo}_s4.jpg"), quality=92); nomes.append(f"{prefixo}_s4.jpg")
-    # 5 ação + pergunta
-    im, d = moldura(5, total, data_txt)
-    rotulo(d, "O QUE FAZER ESTA SEMANA")
-    caixa(d, p["acao"], SERIF, M, 262, W - 2 * M, 400, 50, 34, esp=1.3)
-    d.rounded_rectangle((M, 690, W - M, 1100), radius=28, fill=VERM)
-    caixa(d, p["pergunta"], SERIF_B, M + 44, 730, W - 2 * M - 88, 330, 64, 38, esp=1.16, cor=BRANCO)
-    d.text((M, 1130), "Responde nos comentários. Eu leio todos.", font=f(SANS_B, 30), fill=VERM)
-    d.text((M, 1176), "Segue para ver o que muda antes de virar tendência.", font=f(SANS, 28), fill=CINZA)
+    # 5 ação + pergunta (caixa vermelha ajustada ao texto, sem espaço vazio)
+    im, d = moldura(5, total, data_txt, escuro, seed + 4)
+    rotulo(d, "O QUE FAZER ESTA SEMANA", fg=fg)
+    y = caixa(d, p["acao"], SERIF, M, 262, W - 2 * M, 430, 54, 34, esp=1.3, cor=fg)
+    larg = W - 2 * M - 88
+    tam, alt = altura_texto(d, p["pergunta"], SERIF_B, larg, 76, 40, 380, 1.16)
+    by = int(y + 44)
+    bh = int(alt + 88)
+    d.rounded_rectangle((M, by, W - M, by + bh), radius=28, fill=VERM)
+    caixa(d, p["pergunta"], SERIF_B, M + 44, by + 44, larg, alt + 4, tam, tam, esp=1.16, cor=BRANCO)
+    cy = by + bh + 36
+    d.text((M, cy), "Responde nos comentários. Eu leio todos.", font=f(SANS_B, 32), fill=(240, 70, 76) if escuro else VERM)
+    d.text((M, cy + 50), "Segue para ver o que muda antes de virar tendência.", font=f(SANS, 29), fill=mut)
     im.save(os.path.join(pasta, f"{prefixo}_s5.jpg"), quality=92); nomes.append(f"{prefixo}_s5.jpg")
     return nomes
 
@@ -352,7 +426,7 @@ def enfileirar(posts):
     for p in posts:
         num = len(fila) + 1
         prefixo = f"n{agora.strftime('%Y%m%d')}_{num:03d}"
-        slides = renderizar(p, "imagens", prefixo, data_txt)
+        slides = renderizar(p, "imagens", prefixo, data_txt, escuro=(num % 2 == 0))
         legenda = p["legenda"].strip() + f"\n\nFonte: {p['fonte']}\n\n{HANDLE}"
         fila.append({"noticia": num, "tipo": "noticia", "data": agora.date().isoformat(), "slides": slides, "legenda": legenda, "url": p.get("url", "")})
         usadas.append({"titulo": p["manchete"], "url": p.get("url", "")})
