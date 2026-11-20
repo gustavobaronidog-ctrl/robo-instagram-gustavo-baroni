@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gerar as G
 from conteudo_estrategia import ESTRATEGIA, RESERVA
 from conteudo_reflexao import REFLEXAO
+from conteudo_meta import POSTS as META
 
 W, H = G.W, G.H
 
@@ -54,7 +55,7 @@ def estado(arq):
         json.dump({"proximo": 0, "por_dia": {}}, open(arq, "w"), indent=1)
 
 
-def carrosseis(posts, prefixo, tipo, fila_arq, chave, inicio_cta):
+def carrosseis(posts, prefixo, tipo, fila_arq, chave, inicio_cta, gravar=True):
     fila = []
     for i, (bg, slides, legenda) in enumerate(posts, start=1):
         nomes = []
@@ -65,13 +66,25 @@ def carrosseis(posts, prefixo, tipo, fila_arq, chave, inicio_cta):
         cta = G.CTAS[(inicio_cta + i) % len(G.CTAS)]
         legenda = legenda.replace(f"\n\n{G.HANDLE}", f"\n\n{cta[0]} {cta[1]}\n\n{G.HANDLE}")
         fila.append({chave: i, "tipo": tipo, "slides": nomes, "legenda": legenda})
-    json.dump(fila, open(fila_arq, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(fila_arq, len(fila))
+    if gravar:
+        json.dump(fila, open(fila_arq, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(fila_arq, len(fila))
+    return fila
 
 
 def main():
     os.makedirs("imagens", exist_ok=True)
-    carrosseis(ESTRATEGIA, "e", "estrategia", "fila_estrategia.json", "carrossel", 0)
+    antigos = carrosseis(ESTRATEGIA, "e", "estrategia", "fila_estrategia.json", "carrossel", 0, gravar=False)
+    novos = carrosseis(META, "m", "estrategia", "fila_estrategia.json", "carrossel", 7, gravar=False)
+    # intercala: 1 do método Meta (diagnóstico), 1 do lote anterior, e assim por diante; o resto segue em ordem
+    fila = []
+    for k in range(max(len(antigos), len(novos))):
+        if k < len(novos):
+            fila.append(dict(novos[k], carrossel=f"m{k+1}"))
+        if k < len(antigos):
+            fila.append(antigos[k])
+    json.dump(fila, open("fila_estrategia.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("fila_estrategia.json", len(fila))
     carrosseis(RESERVA, "r", "reserva", "fila_reserva.json", "carrossel", 40)
     fila = []
     for i, (texto, legenda) in enumerate(REFLEXAO, start=1):

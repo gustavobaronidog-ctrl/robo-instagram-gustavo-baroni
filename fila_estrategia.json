@@ -1,5 +1,21 @@
 [
  {
+  "carrossel": "m1",
+  "tipo": "estrategia",
+  "slides": [
+   "m001_s1.jpg",
+   "m001_s2.jpg",
+   "m001_s3.jpg",
+   "m001_s4.jpg",
+   "m001_s5.jpg",
+   "m001_s6.jpg",
+   "m001_s7.jpg",
+   "m001_s8.jpg",
+   "m001_s9.jpg"
+  ],
+  "legenda": "O vazamento mais caro da empresa é o que ninguém vê: o cliente que não chegou a reclamar.\n\nSe você quer um diagnóstico do seu caso, me chama no direct.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 1,
   "tipo": "estrategia",
   "slides": [
@@ -12,6 +28,22 @@
    "e001_s7.jpg"
   ],
   "legenda": "Antes de comprar qualquer ferramenta, descubra onde o tempo da sua equipe está indo embora.\n\nSalva e faz a lista hoje.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m2",
+  "tipo": "estrategia",
+  "slides": [
+   "m002_s1.jpg",
+   "m002_s2.jpg",
+   "m002_s3.jpg",
+   "m002_s4.jpg",
+   "m002_s5.jpg",
+   "m002_s6.jpg",
+   "m002_s7.jpg",
+   "m002_s8.jpg",
+   "m002_s9.jpg"
+  ],
+  "legenda": "Sete sinais simples. Três ou mais e o problema não é venda, é processo.\n\nSalva e confere com a sua empresa.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
  },
  {
   "carrossel": 2,
@@ -27,6 +59,22 @@
   "legenda": "Três sinais simples de que o trabalho repetido já está custando caro.\n\nQual deles aparece aí?\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
  },
  {
+  "carrossel": "m3",
+  "tipo": "estrategia",
+  "slides": [
+   "m003_s1.jpg",
+   "m003_s2.jpg",
+   "m003_s3.jpg",
+   "m003_s4.jpg",
+   "m003_s5.jpg",
+   "m003_s6.jpg",
+   "m003_s7.jpg",
+   "m003_s8.jpg",
+   "m003_s9.jpg"
+  ],
+  "legenda": "Velocidade de resposta é parte do produto. Quem demora entrega o cliente ao concorrente sem perceber.\n\nQuer ver como resolver no seu caso? Me chama no direct.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 3,
   "tipo": "estrategia",
   "slides": [
@@ -40,6 +88,22 @@
   "legenda": "A IA premia quem entende o próprio processo, não quem decora ferramenta.\n\nManda para alguém que acha que isso é só para programador.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
  },
  {
+  "carrossel": "m4",
+  "tipo": "estrategia",
+  "slides": [
+   "m004_s1.jpg",
+   "m004_s2.jpg",
+   "m004_s3.jpg",
+   "m004_s4.jpg",
+   "m004_s5.jpg",
+   "m004_s6.jpg",
+   "m004_s7.jpg",
+   "m004_s8.jpg",
+   "m004_s9.jpg"
+  ],
+  "legenda": "Pedido bagunçado custa mais do que parece: retrabalho, cliente insatisfeito e venda que não se repete.\n\nConta aqui qual dos três você mais vê.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 4,
   "tipo": "estrategia",
   "slides": [
@@ -51,6 +115,22 @@
    "e004_s6.jpg"
   ],
   "legenda": "Começar pela dor, não pela ferramenta, é o que separa teste de resultado.\n\nSalva e escolhe sua primeira dor.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m5",
+  "tipo": "estrategia",
+  "slides": [
+   "m005_s1.jpg",
+   "m005_s2.jpg",
+   "m005_s3.jpg",
+   "m005_s4.jpg",
+   "m005_s5.jpg",
+   "m005_s6.jpg",
+   "m005_s7.jpg",
+   "m005_s8.jpg",
+   "m005_s9.jpg"
+  ],
+  "legenda": "Dependência de uma única pessoa é o risco mais ignorado em empresa pequena.\n\nSalva e anota o que só uma pessoa faz na sua.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
  },
  {
   "carrossel": 5,
@@ -67,6 +147,22 @@
   "legenda": "Cinco perguntas que eu faço antes de escrever uma linha de código.\n\nSalva para usar no seu próximo projeto.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
  },
  {
+  "carrossel": "m6",
+  "tipo": "estrategia",
+  "slides": [
+   "m006_s1.jpg",
+   "m006_s2.jpg",
+   "m006_s3.jpg",
+   "m006_s4.jpg",
+   "m006_s5.jpg",
+   "m006_s6.jpg",
+   "m006_s7.jpg",
+   "m006_s8.jpg",
+   "m006_s9.jpg"
+  ],
+  "legenda": "Troque os números do exemplo pelos seus. A conta quase sempre assusta.\n\nQuer ajuda para achar o que automatizar primeiro? Me chama no direct.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 6,
   "tipo": "estrategia",
   "slides": [
@@ -81,6 +177,22 @@
   "legenda": "Consistência de verdade só vem com sistema. A minha roda sozinha.\n\nSegue para acompanhar como eu construo.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
  },
  {
+  "carrossel": "m7",
+  "tipo": "estrategia",
+  "slides": [
+   "m007_s1.jpg",
+   "m007_s2.jpg",
+   "m007_s3.jpg",
+   "m007_s4.jpg",
+   "m007_s5.jpg",
+   "m007_s6.jpg",
+   "m007_s7.jpg",
+   "m007_s8.jpg",
+   "m007_s9.jpg"
+  ],
+  "legenda": "Plataforma ajuda a começar. Depender só dela custa caro e te deixa sem o contato do cliente.\n\nQuer calcular o seu caso? Me chama no direct.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 7,
   "tipo": "estrategia",
   "slides": [
@@ -92,6 +204,22 @@
    "e007_s6.jpg"
   ],
   "legenda": "Um teste de 3 segundos para saber se seu post é para o cliente ou para você.\n\nSalva e aplica no próximo.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m8",
+  "tipo": "estrategia",
+  "slides": [
+   "m008_s1.jpg",
+   "m008_s2.jpg",
+   "m008_s3.jpg",
+   "m008_s4.jpg",
+   "m008_s5.jpg",
+   "m008_s6.jpg",
+   "m008_s7.jpg",
+   "m008_s8.jpg",
+   "m008_s9.jpg"
+  ],
+  "legenda": "Muita empresa não perde por falta de venda, perde por falta de cobrança.\n\nSalva e olhe seu contas a receber hoje.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
  },
  {
   "carrossel": 8,
@@ -108,6 +236,22 @@
   "legenda": "Três motivos para um carrossel ser ignorado, e como corrigir cada um.\n\nSegue para mais dicas de conteúdo.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
  },
  {
+  "carrossel": "m9",
+  "tipo": "estrategia",
+  "slides": [
+   "m009_s1.jpg",
+   "m009_s2.jpg",
+   "m009_s3.jpg",
+   "m009_s4.jpg",
+   "m009_s5.jpg",
+   "m009_s6.jpg",
+   "m009_s7.jpg",
+   "m009_s8.jpg",
+   "m009_s9.jpg"
+  ],
+  "legenda": "Rapidez e clareza no orçamento vendem mais do que desconto.\n\nQuer um modelo simples para o seu negócio? Me chama no direct.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 9,
   "tipo": "estrategia",
   "slides": [
@@ -119,6 +263,22 @@
    "e009_s6.jpg"
   ],
   "legenda": "Antes de automatizar, escreva o processo. Metade do trabalho já está feita ali.\n\nSalva e tenta com uma tarefa hoje.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m10",
+  "tipo": "estrategia",
+  "slides": [
+   "m010_s1.jpg",
+   "m010_s2.jpg",
+   "m010_s3.jpg",
+   "m010_s4.jpg",
+   "m010_s5.jpg",
+   "m010_s6.jpg",
+   "m010_s7.jpg",
+   "m010_s8.jpg",
+   "m010_s9.jpg"
+  ],
+  "legenda": "Vender de novo para quem já comprou é mais barato que conquistar cliente novo.\n\nSalva e comece o cadastro hoje.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
  },
  {
   "carrossel": 10,
@@ -134,6 +294,22 @@
   "legenda": "O que para quando você some mostra o que precisa virar sistema.\n\nResponde nos comentários, eu leio todos.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
  },
  {
+  "carrossel": "m11",
+  "tipo": "estrategia",
+  "slides": [
+   "m011_s1.jpg",
+   "m011_s2.jpg",
+   "m011_s3.jpg",
+   "m011_s4.jpg",
+   "m011_s5.jpg",
+   "m011_s6.jpg",
+   "m011_s7.jpg",
+   "m011_s8.jpg",
+   "m011_s9.jpg"
+  ],
+  "legenda": "O contraste é sempre o mesmo: o que dependia de memória passa a depender de sistema.\n\nQuer sair do manual? Me chama no direct.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 11,
   "tipo": "estrategia",
   "slides": [
@@ -145,6 +321,22 @@
    "e011_s6.jpg"
   ],
   "legenda": "Responder rápido e bem vende mais do que qualquer anúncio. Dá para automatizar boa parte disso.\n\nSalva a ideia das 10 perguntas.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m12",
+  "tipo": "estrategia",
+  "slides": [
+   "m012_s1.jpg",
+   "m012_s2.jpg",
+   "m012_s3.jpg",
+   "m012_s4.jpg",
+   "m012_s5.jpg",
+   "m012_s6.jpg",
+   "m012_s7.jpg",
+   "m012_s8.jpg",
+   "m012_s9.jpg"
+  ],
+  "legenda": "Antes de automatizar, simplifique. Automação em cima de bagunça só acelera o erro.\n\nSalva os 3 passos.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
  },
  {
   "carrossel": 12,
@@ -161,6 +353,22 @@
   "legenda": "Um caminho realista para começar com IA sem se perder em ferramenta.\n\nSalva e começa pela tarefa mais chata.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
  },
  {
+  "carrossel": "m13",
+  "tipo": "estrategia",
+  "slides": [
+   "m013_s1.jpg",
+   "m013_s2.jpg",
+   "m013_s3.jpg",
+   "m013_s4.jpg",
+   "m013_s5.jpg",
+   "m013_s6.jpg",
+   "m013_s7.jpg",
+   "m013_s8.jpg",
+   "m013_s9.jpg"
+  ],
+  "legenda": "Retrabalho não aparece na conta, mas está em todo prejuízo escondido.\n\nConta aqui onde você mais refaz coisa.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 13,
   "tipo": "estrategia",
   "slides": [
@@ -172,6 +380,22 @@
    "e013_s6.jpg"
   ],
   "legenda": "Organizar o dado é o primeiro passo para qualquer IA ser útil de verdade.\n\nManda para quem guarda tudo e não usa nada.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m14",
+  "tipo": "estrategia",
+  "slides": [
+   "m014_s1.jpg",
+   "m014_s2.jpg",
+   "m014_s3.jpg",
+   "m014_s4.jpg",
+   "m014_s5.jpg",
+   "m014_s6.jpg",
+   "m014_s7.jpg",
+   "m014_s8.jpg",
+   "m014_s9.jpg"
+  ],
+  "legenda": "Antes de gastar com anúncio, conserte o processo que atende quem já chegou.\n\nQuer ajuda para achar a etapa que mais vaza? Me chama no direct.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
  },
  {
   "carrossel": 14,
@@ -187,6 +411,22 @@
   "legenda": "Lançar pequeno e corrigir rápido é a forma mais barata de aprender.\n\nSegue para ver o que eu construo, inclusive o que dá errado.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
  },
  {
+  "carrossel": "m15",
+  "tipo": "estrategia",
+  "slides": [
+   "m015_s1.jpg",
+   "m015_s2.jpg",
+   "m015_s3.jpg",
+   "m015_s4.jpg",
+   "m015_s5.jpg",
+   "m015_s6.jpg",
+   "m015_s7.jpg",
+   "m015_s8.jpg",
+   "m015_s9.jpg"
+  ],
+  "legenda": "Cinco perguntas, dez minutos. Quem não sabe responder já descobriu o buraco.\n\nSalva e responde hoje. Me chama no direct se quiser ajuda para ler o resultado.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 15,
   "tipo": "estrategia",
   "slides": [
@@ -198,6 +438,22 @@
    "e015_s6.jpg"
   ],
   "legenda": "Um filtro simples para não perder tempo automatizando o que não vale.\n\nSalva para a próxima decisão.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m16",
+  "tipo": "estrategia",
+  "slides": [
+   "m016_s1.jpg",
+   "m016_s2.jpg",
+   "m016_s3.jpg",
+   "m016_s4.jpg",
+   "m016_s5.jpg",
+   "m016_s6.jpg",
+   "m016_s7.jpg",
+   "m016_s8.jpg",
+   "m016_s9.jpg"
+  ],
+  "legenda": "IA de atendimento funciona quando cada coisa fica no lugar certo: o repetitivo com ela, o delicado com você.\n\nQuer ver o que cabe no seu negócio? Me chama no direct.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
  },
  {
   "carrossel": 16,
@@ -213,6 +469,22 @@
   "legenda": "A diferença entre uma resposta genérica e uma boa está no que você entrega no pedido.\n\nSalva e testa hoje.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
  },
  {
+  "carrossel": "m17",
+  "tipo": "estrategia",
+  "slides": [
+   "m017_s1.jpg",
+   "m017_s2.jpg",
+   "m017_s3.jpg",
+   "m017_s4.jpg",
+   "m017_s5.jpg",
+   "m017_s6.jpg",
+   "m017_s7.jpg",
+   "m017_s8.jpg",
+   "m017_s9.jpg"
+  ],
+  "legenda": "A tecnologia deixou de ser luxo e virou a diferença de velocidade entre quem cresce e quem estaciona.\n\nQuer conversar sobre o seu processo? Me chama no direct.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
   "carrossel": 17,
   "tipo": "estrategia",
   "slides": [
@@ -224,5 +496,53 @@
    "e017_s6.jpg"
   ],
   "legenda": "Mostre o antes e o depois, não a ferramenta.\n\nSegue para mais ideias de como comunicar melhor.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m18",
+  "tipo": "estrategia",
+  "slides": [
+   "m018_s1.jpg",
+   "m018_s2.jpg",
+   "m018_s3.jpg",
+   "m018_s4.jpg",
+   "m018_s5.jpg",
+   "m018_s6.jpg",
+   "m018_s7.jpg",
+   "m018_s8.jpg",
+   "m018_s9.jpg"
+  ],
+  "legenda": "Um método simples, de caneta e papel, para achar por onde começar.\n\nSalva e faça hoje. Me chama no direct com o resultado se quiser uma segunda opinião.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m19",
+  "tipo": "estrategia",
+  "slides": [
+   "m019_s1.jpg",
+   "m019_s2.jpg",
+   "m019_s3.jpg",
+   "m019_s4.jpg",
+   "m019_s5.jpg",
+   "m019_s6.jpg",
+   "m019_s7.jpg",
+   "m019_s8.jpg",
+   "m019_s9.jpg"
+  ],
+  "legenda": "Três números mudam a forma de decidir. E dá para ter eles sem esforço, com o sistema certo.\n\nQuer montar o seu painel? Me chama no direct.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": "m20",
+  "tipo": "estrategia",
+  "slides": [
+   "m020_s1.jpg",
+   "m020_s2.jpg",
+   "m020_s3.jpg",
+   "m020_s4.jpg",
+   "m020_s5.jpg",
+   "m020_s6.jpg",
+   "m020_s7.jpg",
+   "m020_s8.jpg",
+   "m020_s9.jpg"
+  ],
+  "legenda": "Empresa que depende do dono para tudo não cresce: ela só repete o dia do dono.\n\nQuer tirar o primeiro peso das suas mãos? Me chama no direct.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
  }
 ]
