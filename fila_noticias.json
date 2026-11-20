@@ -54,5 +54,33 @@
   ],
   "legenda": "Um estado americano processou a OpenAI por falta de proteções nos modelos. Se a IA erra com o seu cliente, a culpa é de quem criou ou de quem usou?\n\nFonte: NBC News\n\n@gustavobaroni.ai",
   "url": "https://www.nbcnews.com/artificial-intelligence"
+ },
+ {
+  "noticia": 5,
+  "tipo": "noticia",
+  "data": "2026-11-20",
+  "slides": [
+   "n20261120_005_s1.jpg",
+   "n20261120_005_s2.jpg",
+   "n20261120_005_s3.jpg",
+   "n20261120_005_s4.jpg",
+   "n20261120_005_s5.jpg"
+  ],
+  "legenda": "A IA chegou a mais da metade da população em três anos e a maioria das empresas ainda engatinha. Sua equipe já usa mais IA do que a empresa sabe?\n\nFonte: Exame\n\n@gustavobaroni.ai",
+  "url": "https://exame.com/noticias-sobre/INTELIGENCIA-ARTIFICIAL"
+ },
+ {
+  "noticia": 6,
+  "tipo": "noticia",
+  "data": "2026-11-20",
+  "slides": [
+   "n20261120_006_s1.jpg",
+   "n20261120_006_s2.jpg",
+   "n20261120_006_s3.jpg",
+   "n20261120_006_s4.jpg",
+   "n20261120_006_s5.jpg"
+  ],
+  "legenda": "O CEO da Nestlé disse que entender IA é a habilidade mais importante hoje. Você entende de IA ou só usa ferramentas?\n\nFonte: Exame\n\n@gustavobaroni.ai",
+  "url": "https://exame.com/noticias-sobre/INTELIGENCIA-ARTIFICIAL"
  }
 ]
