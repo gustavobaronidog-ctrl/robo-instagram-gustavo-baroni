@@ -5,6 +5,10 @@ on:
     - cron: "40 9 * * *"    # 06:40 em Brasilia
     - cron: "40 11 * * *"   # 08:40 em Brasilia (repete so se a de cima falhou)
   workflow_dispatch:
+    inputs:
+      teste:
+        description: "true = só testa o modelo, não enfileira nada"
+        default: "false"
 
 permissions:
   contents: write
@@ -24,6 +28,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TESTE: ${{ github.event.inputs.teste }}
         run: python3 noticias.py
       - name: Gravar na fila
         run: |

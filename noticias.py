@@ -17,7 +17,7 @@ SANS_B = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 SANS = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
 PAPEL, TINTA, CINZA, AZUL = (243, 238, 227), (17, 17, 17), (95, 90, 80), (29, 78, 216)
 HANDLE = "@gustavobaroni.ai"
-POR_DIA = 3
+POR_DIA = 4
 MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
 DIAS = ["segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
 FONTES_RSS = [
@@ -103,7 +103,7 @@ def coletar():
 
 # ---------- redação (modelo gratuito do GitHub Models) ----------
 PROMPT = """Você é o Gustavo Baroni, um construtor de sistemas, IA e automação para empresários brasileiros. Escreva em português do Brasil, primeira pessoa, direto, concreto, sem exagero e sem jargão.
-Abaixo estão notícias de IA das últimas 36 horas (com o "quente" = termômetro de repercussão). Escolha exatamente {n} notícias DIFERENTES entre si: priorize o que está bombando AGORA, as polêmicas e o que muda a vida de quem empreende ou constrói com IA. Varie os ângulos entre as 3: (a) lançamento de laboratório (OpenAI, Anthropic, Google, ElevenLabs, Perplexity), (b) empresa grande ou conhecida usando IA no negócio (Airbnb, Gamma, Notion, Shopify, Klarna etc.: o que lançou e o que a IA passou a fazer), (c) polêmica ou regra. Evite notícia fraca, repetida ou só de produto menor.
+Abaixo estão notícias de IA das últimas 36 horas (com o "quente" = termômetro de repercussão). Escolha exatamente {n} notícias DIFERENTES entre si: priorize o que está bombando AGORA, as polêmicas e o que muda a vida de quem empreende ou constrói com IA. Varie os ângulos entre as {n}: (a) lançamento de laboratório (OpenAI, Anthropic, Google, ElevenLabs, Perplexity), (b) empresa grande ou conhecida usando IA no negócio (Airbnb, Gamma, Notion, Shopify, Klarna etc.: o que lançou e o que a IA passou a fazer), (c) polêmica ou regra. Evite notícia fraca, repetida ou só de produto menor.
 Para cada uma escreva um post em formato de jornal. REGRAS: use só fatos presentes no título/resumo dado; não invente números, nomes nem citações; se não souber, diga o que está em aberto. Não cite empresas ou produtos do Gustavo e não fale de agenda, horário ou salão. Não copie frases da fonte. Sem hashtag.
 Campos (JSON): manchete (até 90 caracteres, estilo manchete de jornal, forte e clara), subtitulo (até 140), contexto (até 330 caracteres: o que aconteceu, objetivo), importa (até 330: por que isso importa para quem empreende), leitura (até 380: a SUA leitura/conclusão como Gustavo, com opinião e um ponto que pouca gente está vendo), acao (até 300: o que o empresário pode fazer com isso esta semana), pergunta (até 110: pergunta aberta que gere comentário, tomando um lado), numeros (lista de 0 a 3 objetos {{\"n\": número ou dado curto com unidade, ex. \"US$ 22 bi\", \"r\": o que o número mede, até 70 caracteres}} usando SOMENTE números que aparecem no título/resumo; se não houver, lista vazia), fonte (nome da fonte), url (link exato dado), legenda (2 a 3 frases curtas que prendem, terminando com a pergunta; sem hashtag).
 Responda SOMENTE um JSON no formato {{"posts":[{{...}},{{...}},{{...}}]}}.
@@ -442,6 +442,12 @@ def main():
     hoje = agora_brt().date().isoformat()
     fila = json.load(open("fila_noticias.json", encoding="utf-8")) if os.path.exists("fila_noticias.json") else []
     ja = sum(1 for x in fila if x.get("data") == hoje)
+    teste = os.environ.get("TESTE") == "true"
+    if teste:
+        cands = coletar()
+        for p in redigir(cands, 2):
+            print("TESTE OK:", p["manchete"], "|", p["fonte"])
+        return
     if ja >= POR_DIA:
         print(f"hoje já tem {ja} notícias na fila (talvez feitas pelo Claude): nada a fazer")
         return
