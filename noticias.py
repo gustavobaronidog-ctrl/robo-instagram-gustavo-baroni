@@ -113,15 +113,25 @@ def redigir(cands, n):
     ultimo = None
     for modelo in ["openai/gpt-4.1", "openai/gpt-4o", "openai/gpt-4.1-mini"]:
         try:
-            corpo = json.dumps({"model": modelo, "temperature": 0.7, "response_format": {"type": "json_object"},
+            corpo = json.dumps({"model": modelo, "temperature": 0.7, "max_tokens": 4000,
                                 "messages": [{"role": "user", "content": PROMPT.format(n=n, lista=lista)}]}).encode()
             req = urllib.request.Request("https://models.github.ai/inference/chat/completions", data=corpo,
                                          headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json",
                                                   "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"})
             with urllib.request.urlopen(req, timeout=120) as r:
-                txt = json.load(r)["choices"][0]["message"]["content"]
+                bruto = r.read().decode("utf-8", "replace")
+            try:
+                txt = json.loads(bruto)["choices"][0]["message"]["content"] or ""
+            except Exception:
+                print(f"resposta bruta de {modelo}: {bruto[:400]!r}")
+                raise
             txt = re.sub(r"^```(?:json)?|```$", "", txt.strip(), flags=re.M).strip()
-            posts = json.loads(txt)["posts"]
+            ini, fim = txt.find("{"), txt.rfind("}")
+            try:
+                posts = json.loads(txt[ini:fim + 1])["posts"]
+            except Exception:
+                print(f"texto do modelo {modelo}: {txt[:400]!r}")
+                raise
             posts = [p for p in posts if all(p.get(k) for k in ("manchete", "subtitulo", "contexto", "importa", "leitura", "acao", "pergunta", "fonte", "legenda"))]
             if len(posts) >= 1:
                 print(f"redigido com {modelo}: {len(posts)} posts")
