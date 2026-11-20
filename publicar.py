@@ -93,28 +93,59 @@ def esperar_pronto(cid, tentativas=20):
     raise RuntimeError(f"container {cid} não ficou pronto")
 
 
-def publicar(fila_arq, estado_arq):
-    """Publica o próximo carrossel da fila. Devolve True se publicou."""
+def _item(fila_arq, estado_arq, reserva):
+    """Escolhe o que publicar. Se a fila principal acabou ou o item é notícia velha (mais de 1 dia),
+    usa a reserva: assim a quantidade de posts do dia nunca diminui."""
     fila = json.load(open(fila_arq, encoding="utf-8"))
     estado = json.load(open(estado_arq))
     i = estado["proximo"]
-    if i >= len(fila):
-        print(f"Fila {fila_arq} terminada: nada a publicar. AVISO: criar mais conteúdo.", flush=True)
+    hoje = agora_brt().date()
+    velho = False
+    if i < len(fila) and fila[i].get("data"):
+        try:
+            velho = (hoje - datetime.date.fromisoformat(fila[i]["data"])).days > 1
+        except ValueError:
+            pass
+    if i < len(fila) and not velho:
+        return fila[i], (fila_arq, estado_arq), i, len(fila), estado
+    if reserva:
+        rf = json.load(open(reserva[0], encoding="utf-8"))
+        re_ = json.load(open(reserva[1]))
+        if re_["proximo"] < len(rf):
+            print(f"{fila_arq} sem item do dia: usando a reserva ({reserva[0]}).", flush=True)
+            return rf[re_["proximo"]], reserva, re_["proximo"], len(rf), estado
+    print(f"Fila {fila_arq} terminada e sem reserva: nada a publicar. AVISO: criar mais conteudo.", flush=True)
+    return None
+
+
+def publicar(fila_arq, estado_arq, reserva=None):
+    """Publica o proximo post (carrossel ou imagem unica). Devolve True se publicou."""
+    escolha = _item(fila_arq, estado_arq, reserva)
+    if not escolha:
         return False
-    item = fila[i]
-    print(f"Publicando {fila_arq} #{item.get('carrossel', item.get('noticia', i + 1))} (posição {i+1}/{len(fila)})", flush=True)
-    filhos = [chamar(f"{IG}/media", {"image_url": BASE + n, "is_carousel_item": "true"})["id"] for n in item["slides"]]
-    for c in filhos:
-        esperar_pronto(c)
-    pai = chamar(f"{IG}/media", {"media_type": "CAROUSEL", "children": ",".join(filhos), "caption": item["legenda"]})["id"]
+    item, (src_fila, src_estado), i, total, estado = escolha
+    print(f"Publicando {src_fila} #{item.get('carrossel', item.get('noticia', item.get('reflexao', i + 1)))} (posicao {i+1}/{total})", flush=True)
+    slides = item["slides"]
+    if len(slides) == 1:  # post estatico (uma imagem)
+        pai = chamar(f"{IG}/media", {"image_url": BASE + slides[0], "caption": item["legenda"]})["id"]
+    else:
+        filhos = [chamar(f"{IG}/media", {"image_url": BASE + n, "is_carousel_item": "true"})["id"] for n in slides]
+        for c in filhos:
+            esperar_pronto(c)
+        pai = chamar(f"{IG}/media", {"media_type": "CAROUSEL", "children": ",".join(filhos), "caption": item["legenda"]})["id"]
     esperar_pronto(pai)
     pub = chamar(f"{IG}/media_publish", {"creation_id": pai})
     print("PUBLICADO:", pub, flush=True)
     hoje = agora_brt().strftime("%Y-%m-%d")
-    estado["proximo"] = i + 1
+    if src_estado != estado_arq:  # veio da reserva: avanca a reserva e conta no tipo principal
+        r = json.load(open(src_estado))
+        r["proximo"] = i + 1
+        r["ultimo_post_id"] = pub.get("id")
+        json.dump(r, open(src_estado, "w"), indent=1)
+    else:
+        estado["proximo"] = i + 1
     estado["ultimo_post_id"] = pub.get("id")
-    estado.setdefault("por_dia", {})
-    estado["por_dia"] = {hoje: estado["por_dia"].get(hoje, 0) + 1}  # só guarda o dia de hoje
+    estado["por_dia"] = {hoje: estado.get("por_dia", {}).get(hoje, 0) + 1}
     json.dump(estado, open(estado_arq, "w"), indent=1)
     return True
 

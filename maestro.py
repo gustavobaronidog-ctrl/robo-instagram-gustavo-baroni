@@ -6,14 +6,32 @@ import publicar as P
 
 # Horários de Brasília (minutos desde 00:00). Todos antes das 18h.
 # Reels de carrossel e vídeos dinâmicos entram aqui quando forem produzidos (fila própria cada um).
-TIPOS = {
-    "educativo": {"slots": [8 * 60, 12 * 60, 15 * 60], "fila": "fila.json", "estado": "estado.json"},
-    "noticia": {"slots": [10 * 60 + 30, 14 * 60 + 30, 17 * 60], "fila": "fila_noticias.json", "estado": "estado_noticias.json"},
+# Ate 20/11/2026 (inclusive): 6 posts/dia (3 educativos + 3 noticias). A partir de 21/11: 12 posts/dia.
+SLOTS_ANTIGOS = {"educativo": [8 * 60, 12 * 60, 15 * 60], "noticia": [10 * 60 + 30, 14 * 60 + 30, 17 * 60]}
+SLOTS_NOVOS = {
+    "educativo": [8 * 60, 12 * 60, 15 * 60, 18 * 60],              # 4: passo a passo / ensinando
+    "noticia": [10 * 60 + 30, 14 * 60 + 30, 17 * 60, 19 * 60 + 30],  # 4: noticias de IA
+    "estrategia": [9 * 60 + 15, 13 * 60, 16 * 60],                  # 3: estrategia (modelagem dos perfis)
+    "reflexao": [11 * 60 + 30],                                      # 1: estatico de reflexao
 }
-# Horários extras só para um dia específico (ex.: dia de 12 posts). Formato: {"AAAA-MM-DD": {"tipo": [minutos, ...]}}
+DATA_NOVA = "2026-11-21"
+TIPOS = {
+    "educativo": {"fila": "fila.json", "estado": "estado.json"},
+    "noticia": {"fila": "fila_noticias.json", "estado": "estado_noticias.json", "reserva": ("fila_reserva.json", "estado_reserva.json")},
+    "estrategia": {"fila": "fila_estrategia.json", "estado": "estado_estrategia.json"},
+    "reflexao": {"fila": "fila_reflexao.json", "estado": "estado_reflexao.json"},
+}
+# Horarios extras so para um dia especifico (ex.: dia de 12 posts). Formato: {"AAAA-MM-DD": {"tipo": [minutos, ...]}}
 EXTRAS = {
     "2026-11-20": {"educativo": [17 * 60 + 30, 19 * 60, 20 * 60 + 30], "noticia": [18 * 60 + 30, 20 * 60, 21 * 60 + 30]},
 }
+
+
+def slots_do_dia(nome, hoje):
+    base = SLOTS_NOVOS if hoje >= DATA_NOVA else SLOTS_ANTIGOS
+    return base.get(nome, []) + EXTRAS.get(hoje, {}).get(nome, [])
+
+
 INICIO, LIMITE, DURACAO, INTERVALO = 7 * 60, 22 * 60, 50 * 60, 5 * 60
 
 
@@ -39,12 +57,12 @@ def conferir(minutos):
             ja = json.load(open(t["estado"])).get("por_dia", {}).get(hoje, 0)
         except FileNotFoundError:
             continue
-        devidos = sorted(s for s in t["slots"] + EXTRAS.get(hoje, {}).get(nome, []) if s <= minutos)
+        devidos = sorted(s for s in slots_do_dia(nome, hoje) if s <= minutos)
         if len(devidos) - ja <= 0:
             continue
         print(f"{hoje} {minutos//60:02d}:{minutos%60:02d} DEVIDO e não publicado: {nome} (faltam {len(devidos)-ja}). Publicando 1.", flush=True)
         try:
-            P.publicar(t["fila"], t["estado"])
+            P.publicar(t["fila"], t["estado"], t.get("reserva"))
         except Exception as e:
             print(f"ERRO ao publicar {nome}: {e}", flush=True)
             if minutos - devidos[-1] > 90:

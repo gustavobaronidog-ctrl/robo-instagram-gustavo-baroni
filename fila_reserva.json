@@ -1,0 +1,77 @@
+[
+ {
+  "carrossel": 1,
+  "tipo": "reserva",
+  "slides": [
+   "r001_s1.jpg",
+   "r001_s2.jpg",
+   "r001_s3.jpg",
+   "r001_s4.jpg",
+   "r001_s5.jpg"
+  ],
+  "legenda": "Cortar ou automatizar: toda tarefa antiga merece essa pergunta.\n\nSalva e revisa sua semana.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 2,
+  "tipo": "reserva",
+  "slides": [
+   "r002_s1.jpg",
+   "r002_s2.jpg",
+   "r002_s3.jpg",
+   "r002_s4.jpg",
+   "r002_s5.jpg",
+   "r002_s6.jpg",
+   "r002_s7.jpg"
+  ],
+  "legenda": "Cinco passos para pedidos melhores para qualquer IA.\n\nSalva e usa na próxima conversa.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 3,
+  "tipo": "reserva",
+  "slides": [
+   "r003_s1.jpg",
+   "r003_s2.jpg",
+   "r003_s3.jpg",
+   "r003_s4.jpg",
+   "r003_s5.jpg"
+  ],
+  "legenda": "Uma pergunta por semana que muda como você enxerga o seu trabalho.\n\nSegue para mais ideias assim.\n\nSe isso faz sentido para o seu negócio, me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 4,
+  "tipo": "reserva",
+  "slides": [
+   "r004_s1.jpg",
+   "r004_s2.jpg",
+   "r004_s3.jpg",
+   "r004_s4.jpg",
+   "r004_s5.jpg",
+   "r004_s6.jpg"
+  ],
+  "legenda": "Três sinais de que uma automação ainda não está pronta para confiar.\n\nManda para quem monta robô sozinho.\n\nQuer um sistema assim no seu negócio? Me chama no direct.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 5,
+  "tipo": "reserva",
+  "slides": [
+   "r005_s1.jpg",
+   "r005_s2.jpg",
+   "r005_s3.jpg",
+   "r005_s4.jpg"
+  ],
+  "legenda": "A rotina vence o talento quando ela é automática.\n\nSegue para acompanhar a minha.\n\nQuer ver isso rodando na sua empresa? Me chama no direct e segue para mais.\n\n@gustavobaroni.ai"
+ },
+ {
+  "carrossel": 6,
+  "tipo": "reserva",
+  "slides": [
+   "r006_s1.jpg",
+   "r006_s2.jpg",
+   "r006_s3.jpg",
+   "r006_s4.jpg",
+   "r006_s5.jpg",
+   "r006_s6.jpg"
+  ],
+  "legenda": "Três perguntas antes de assinar mais uma ferramenta.\n\nSalva para a próxima compra.\n\nGostou? Segue para mais sistemas e IA que funcionam de verdade.\n\n@gustavobaroni.ai"
+ }
+]
