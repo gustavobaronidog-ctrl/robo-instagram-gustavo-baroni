@@ -1,4 +1,7 @@
 {
- "proximo": 0,
- "por_dia": {}
+ "proximo": 1,
+ "por_dia": {
+  "2026-11-21": 1
+ },
+ "ultimo_post_id": "17901916092394681"
 }
