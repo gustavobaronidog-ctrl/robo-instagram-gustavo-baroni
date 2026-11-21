@@ -22,5 +22,21 @@
  {
   "titulo": "CEO da Nestlé diz que entender IA é a habilidade mais importante hoje",
   "url": "https://exame.com/noticias-sobre/INTELIGENCIA-ARTIFICIAL"
+ },
+ {
+  "titulo": "OpenAI lança GPT-6.2 Astra e Sol e derruba o preço da API",
+  "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/"
+ },
+ {
+  "titulo": "Klarna reconstrói o app em volta de um assistente de compras com IA",
+  "url": "https://aimmediahouse.com/retail/klarna-is-rebuilding-its-app-around-an-ai-shopping-agent"
+ },
+ {
+  "titulo": "Trump ameaça taxar empresas de IA que construírem data centers fora",
+  "url": "https://www.cnbc.com/2026/11/20/trump-data-centers-ai-companies-tax.html"
+ },
+ {
+  "titulo": "IPO da Anthropic sai a US$ 83 por ação, acima da faixa prevista",
+  "url": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/"
  }
 ]
