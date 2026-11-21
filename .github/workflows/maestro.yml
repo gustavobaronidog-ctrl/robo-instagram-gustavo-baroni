@@ -3,8 +3,8 @@ name: Maestro dos posts
 on:
   schedule:
     # Reserva: se a corrente de plantoes se quebrar, o agendamento religa. Das 7h as 22h (Brasilia).
-    - cron: "17,47 10-23 * * *"
-    - cron: "17,47 0-1 * * *"
+    - cron: "*/10 10-23 * * *"
+    - cron: "*/10 0-1 * * *"
   workflow_dispatch:
 
 permissions:
