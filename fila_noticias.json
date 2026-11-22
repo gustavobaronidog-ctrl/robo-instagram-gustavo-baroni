@@ -138,5 +138,61 @@
   ],
   "legenda": "A Anthropic precificou o IPO a US$ 83, acima da faixa de US$ 70 a US$ 78, e vendeu 980 milhões de ações. Agora existe acionista cobrando resultado de uma empresa que se vende como a mais cuidadosa. Capital aberto vai deixar a Anthropic mais ou menos segura?\n\nFonte: TechCrunch\n\n@gustavobaroni.ai",
   "url": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/"
+ },
+ {
+  "noticia": 11,
+  "tipo": "noticia",
+  "data": "2026-11-22",
+  "slides": [
+   "n20261122_011_s1.jpg",
+   "n20261122_011_s2.jpg",
+   "n20261122_011_s3.jpg",
+   "n20261122_011_s4.jpg",
+   "n20261122_011_s5.jpg"
+  ],
+  "legenda": "A OpenAI lançou o ChatGPT Wallet e o agente agora paga com token de cartão de verdade. Pra mim, o comprador deixa de ser gente e vira máquina que compara dado, não banner. Você deixaria um agente comprar por você sem aprovar cada compra?\n\n@gustavobaroni.ai\n\nFonte: Trew Knowledge (resumo semanal)\n\n@gustavobaroni.ai",
+  "url": "https://trewknowledge.com/2026/11/20/ai-this-week-the-agent-will-take-it-from-here/"
+ },
+ {
+  "noticia": 12,
+  "tipo": "noticia",
+  "data": "2026-11-22",
+  "slides": [
+   "n20261122_012_s1.jpg",
+   "n20261122_012_s2.jpg",
+   "n20261122_012_s3.jpg",
+   "n20261122_012_s4.jpg",
+   "n20261122_012_s5.jpg"
+  ],
+  "legenda": "A Replit liberou no agente a compra de suprimentos e a gestão de anúncios no Google Ads, sempre com aprovação do dono. Eu acho que a trava de aprovação é o verdadeiro produto, porque é ela que faz alguém confiar no agente. Você daria o orçamento de anúncios para um agente tocar sozinho?\n\n@gustavobaroni.ai\n\nFonte: Trew Knowledge (resumo semanal)\n\n@gustavobaroni.ai",
+  "url": "https://trewknowledge.com/2026/11/20/ai-this-week-the-agent-will-take-it-from-here/"
+ },
+ {
+  "noticia": 13,
+  "tipo": "noticia",
+  "data": "2026-11-22",
+  "slides": [
+   "n20261122_013_s1.jpg",
+   "n20261122_013_s2.jpg",
+   "n20261122_013_s3.jpg",
+   "n20261122_013_s4.jpg",
+   "n20261122_013_s5.jpg"
+  ],
+  "legenda": "A ONU terminou o encontro sobre armas autônomas sem proibição: 128 países só concordaram em elaborar um acordo até 2028. Eu acho que quem lidera a tecnologia quase nunca quer a regra, e o vácuo vai ser preenchido por política de empresa. Arma autônoma deveria ser proibida por tratado, sim ou não?\n\n@gustavobaroni.ai\n\nFonte: AI Weekly (resumo de 22/11)\n\n@gustavobaroni.ai",
+  "url": "https://aiweekly.co/ai-news-today"
+ },
+ {
+  "noticia": 14,
+  "tipo": "noticia",
+  "data": "2026-11-22",
+  "slides": [
+   "n20261122_014_s1.jpg",
+   "n20261122_014_s2.jpg",
+   "n20261122_014_s3.jpg",
+   "n20261122_014_s4.jpg",
+   "n20261122_014_s5.jpg"
+  ],
+  "legenda": "Pesquisadores da NYU e da Anthropic afirmam ter provado um problema clássico de Navier-Stokes com ajuda de IA, mas o artigo ainda não foi revisado. Pra mim o valor está na verificação formal: máquina propõe, outra confere. Se a IA provar isso, ela merece o crédito?\n\n@gustavobaroni.ai\n\nFonte: AI Weekly (resumo de 22/11)\n\n@gustavobaroni.ai",
+  "url": "https://aiweekly.co/ai-news-today"
  }
 ]
