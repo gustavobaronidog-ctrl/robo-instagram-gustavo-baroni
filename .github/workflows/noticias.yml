@@ -2,8 +2,11 @@ name: Noticias de IA (le, analisa e enfileira)
 
 on:
   schedule:
-    - cron: "40 9 * * *"    # 06:40 em Brasilia
-    - cron: "40 11 * * *"   # 08:40 em Brasilia (repete so se a de cima falhou)
+    # Geracao antecipada e novas oportunidades de recuperacao antes da primeira noticia (10h30 BRT).
+    - cron: "40 9 * * *"    # 06:40 Brasilia
+    - cron: "40 10 * * *"   # 07:40 Brasilia
+    - cron: "40 11 * * *"   # 08:40 Brasilia
+    - cron: "40 12 * * *"   # 09:40 Brasilia
   workflow_dispatch:
     inputs:
       teste:
@@ -13,6 +16,10 @@ on:
 permissions:
   contents: write
   models: read
+
+concurrency:
+  group: noticias-diarias
+  cancel-in-progress: false
 
 jobs:
   noticias:
@@ -29,7 +36,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TESTE: ${{ github.event.inputs.teste }}
-        run: python3 noticias.py
+        run: |
+          # Falha transitória de Gemini/modelo não pode encerrar a geração do dia.
+          for tentativa in 1 2 3; do
+            if python3 noticias.py; then
+              exit 0
+            fi
+            if [ "$tentativa" -lt 3 ]; then
+              espera=$((tentativa * 90))
+              echo "Geração falhou na tentativa $tentativa. Nova tentativa em $espera segundos."
+              sleep "$espera"
+            fi
+          done
+          echo "::error::Não foi possível gerar as notícias após 3 tentativas."
+          exit 1
       - name: Gravar na fila
         run: |
           git config user.name "github-actions[bot]"
