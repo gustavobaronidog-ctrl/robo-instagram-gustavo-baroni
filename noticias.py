@@ -157,8 +157,9 @@ def modelos_gemini(chave):
     except Exception as e:
         print(f"  não consegui listar os modelos: {e}")
     achados.sort(key=lambda n: [int(x) if x.isdigit() else 0 for x in re.findall(r"\d+", n)], reverse=True)
-    print("modelos flash disponíveis:", achados[:6])
-    return achados[:3]
+    print("modelos flash disponíveis:", achados[:8])
+    # Mantém mais alternativas: indisponibilidade de uma família/modelo não derruba o dia.
+    return achados[:8]
 
 
 def validar(txt, n):
@@ -175,20 +176,31 @@ def redigir(cands, n):
     msgs = [{"role": "user", "content": prompt}]
     chave = os.environ.get("GEMINI_API_KEY", "").strip()
     if chave:
-        for modelo in dict.fromkeys(["gemini-3.8-flash"] + modelos_gemini(chave) + ["gemini-flash-latest"]):
-            try:
-                status, txt, corpo, err = chamar_gemini(modelo, chave, prompt)
-                print(f"{modelo} @ gemini: {status} {err}")
-                if not txt:
+        modelos = dict.fromkeys(["gemini-3.8-flash"] + modelos_gemini(chave) + ["gemini-flash-latest", "gemini-2.5-flash"])
+        for modelo in modelos:
+            for tentativa in range(3):
+                try:
+                    status, txt, corpo, err = chamar_gemini(modelo, chave, prompt)
+                    print(f"{modelo} @ gemini (tentativa {tentativa + 1}/3): {status} {err}")
+                    if txt:
+                        posts = validar(txt, n)
+                        if posts:
+                            print(f"redigido com {modelo}: {len(posts)} posts")
+                            return posts
+                        print(f"  sem posts válidos: {txt[:200]!r}")
+                        break
                     print(f"  corpo: {corpo!r}")
-                    continue
-                posts = validar(txt, n)
-                if posts:
-                    print(f"redigido com {modelo}: {len(posts)} posts")
-                    return posts
-                print(f"  sem posts válidos: {txt[:200]!r}")
-            except Exception as e:
-                print(f"  erro com {modelo}: {e}")
+                    # 429/5xx são falhas transitórias; tenta novamente antes de trocar de modelo.
+                    if not any(codigo in status for codigo in ("429", "500", "502", "503", "504")):
+                        break
+                    if tentativa < 2:
+                        espera = 20 * (tentativa + 1)
+                        print(f"  serviço indisponível; nova tentativa em {espera}s")
+                        time.sleep(espera)
+                except Exception as e:
+                    print(f"  erro com {modelo}: {e}")
+                    if tentativa < 2:
+                        time.sleep(20 * (tentativa + 1))
     tentativas = [("https://models.github.ai/inference/chat/completions", m) for m in ("openai/gpt-4.1", "openai/gpt-4o", "openai/gpt-4.1-mini")] + \
                  [("https://models.inference.ai.azure.com/chat/completions", m) for m in ("gpt-4o", "gpt-4o-mini")]
     for url, modelo in tentativas:
