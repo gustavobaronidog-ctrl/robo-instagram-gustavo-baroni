@@ -131,7 +131,7 @@ def chamar_gemini(modelo, chave, prompt):
                         "generationConfig": {"temperature": 0.7, "responseMimeType": "application/json", "maxOutputTokens": 6000}})
     r = subprocess.run(["curl", "-sS", "-i", "-X", "POST", f"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent",
                         "-H", f"x-goog-api-key: {chave}", "-H", "Content-Type: application/json", "-d", corpo],
-                       capture_output=True, text=True, timeout=120)
+                       capture_output=True, text=True, timeout=40)
     saida = r.stdout.replace("\r\n", "\n")
     cab, _, resto = saida.rpartition("\n\n")
     status = cab.split("\n")[0] if cab else "sem status"
@@ -157,9 +157,9 @@ def modelos_gemini(chave):
     except Exception as e:
         print(f"  não consegui listar os modelos: {e}")
     achados.sort(key=lambda n: [int(x) if x.isdigit() else 0 for x in re.findall(r"\d+", n)], reverse=True)
-    print("modelos flash disponíveis:", achados[:8])
-    # Mantém mais alternativas: indisponibilidade de uma família/modelo não derruba o dia.
-    return achados[:8]
+    print("modelos flash disponíveis:", achados[:4])
+    # Quatro modelos diferentes, para manter o tempo de recuperação dentro do limite do Actions.
+    return achados[:4]
 
 
 def validar(txt, n):
@@ -178,7 +178,7 @@ def redigir(cands, n):
     if chave:
         modelos = dict.fromkeys(["gemini-3.8-flash"] + modelos_gemini(chave) + ["gemini-flash-latest", "gemini-2.5-flash"])
         for modelo in modelos:
-            for tentativa in range(3):
+            for tentativa in range(2):
                 try:
                     status, txt, corpo, err = chamar_gemini(modelo, chave, prompt)
                     print(f"{modelo} @ gemini (tentativa {tentativa + 1}/3): {status} {err}")
@@ -193,14 +193,14 @@ def redigir(cands, n):
                     # 429/5xx são falhas transitórias; tenta novamente antes de trocar de modelo.
                     if not any(codigo in status for codigo in ("429", "500", "502", "503", "504")):
                         break
-                    if tentativa < 2:
-                        espera = 20 * (tentativa + 1)
+                    if tentativa < 1:
+                        espera = 15
                         print(f"  serviço indisponível; nova tentativa em {espera}s")
                         time.sleep(espera)
                 except Exception as e:
                     print(f"  erro com {modelo}: {e}")
-                    if tentativa < 2:
-                        time.sleep(20 * (tentativa + 1))
+                    if tentativa < 1:
+                        time.sleep(15)
     tentativas = [("https://models.github.ai/inference/chat/completions", m) for m in ("openai/gpt-4.1", "openai/gpt-4o", "openai/gpt-4.1-mini")] + \
                  [("https://models.inference.ai.azure.com/chat/completions", m) for m in ("gpt-4o", "gpt-4o-mini")]
     for url, modelo in tentativas:
