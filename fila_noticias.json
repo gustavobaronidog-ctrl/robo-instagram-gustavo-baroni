@@ -250,5 +250,61 @@
   ],
   "legenda": "Dois estados americanos processaram a SpaceX devido a deepfakes gerados pela IA Grok. A falta de travas de segurança na IA está virando um risco jurídico real para as empresas. As plataformas de IA devem ser responsabilizadas legalmente pelos abusos cometidos pelos usuários?\n\nFonte: The Verge\n\n@gustavobaroni.ai",
   "url": "https://www.theverge.com/ai-artificial-intelligence/1040255/x-grok-ai-deepfakes-oregon-virginia-lawsuit"
+ },
+ {
+  "noticia": 19,
+  "tipo": "noticia",
+  "data": "2026-11-27",
+  "slides": [
+   "n20261127_019_s1.jpg",
+   "n20261127_019_s2.jpg",
+   "n20261127_019_s3.jpg",
+   "n20261127_019_s4.jpg",
+   "n20261127_019_s5.jpg"
+  ],
+  "legenda": "O Google liberou servidores MCP para agentes, mas não deixa o Gmail disparar e-mails sozinho. A trava de segurança mostra o receio das gigantes com a autonomia total. Você confiaria em um agente de IA enviando e-mails da sua empresa sem revisão humana?\n\nFonte: Hacker News\n\n@gustavobaroni.ai",
+  "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/"
+ },
+ {
+  "noticia": 20,
+  "tipo": "noticia",
+  "data": "2026-11-27",
+  "slides": [
+   "n20261127_020_s1.jpg",
+   "n20261127_020_s2.jpg",
+   "n20261127_020_s3.jpg",
+   "n20261127_020_s4.jpg",
+   "n20261127_020_s5.jpg"
+  ],
+  "legenda": "A Character.AI entrou em recuperação judicial e quer leiloar chats de usuários, mas 42 procuradores tentam barrar. Quando a empresa quebra, seus dados viram produto. Sua empresa tem uma política clara sobre quais dados podem ou não entrar em chats de IA?\n\nFonte: The Verge\n\n@gustavobaroni.ai",
+  "url": "https://www.theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats"
+ },
+ {
+  "noticia": 21,
+  "tipo": "noticia",
+  "data": "2026-11-27",
+  "slides": [
+   "n20261127_021_s1.jpg",
+   "n20261127_021_s2.jpg",
+   "n20261127_021_s3.jpg",
+   "n20261127_021_s4.jpg",
+   "n20261127_021_s5.jpg"
+  ],
+  "legenda": "A Nvidia travou remessas de servidores de IA para quatro países do Sudeste Asiático por pressão dos EUA. A geopolítica bate direto na infraestrutura que roda nossos sistemas. Você já avaliou o risco de bloqueios geopolíticos afetarem a estabilidade das IAs que você usa?\n\nFonte: TechCrunch\n\n@gustavobaroni.ai",
+  "url": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/"
+ },
+ {
+  "noticia": 22,
+  "tipo": "noticia",
+  "data": "2026-11-27",
+  "slides": [
+   "n20261127_022_s1.jpg",
+   "n20261127_022_s2.jpg",
+   "n20261127_022_s3.jpg",
+   "n20261127_022_s4.jpg",
+   "n20261127_022_s5.jpg"
+  ],
+  "legenda": "A Meta negou testes conjuntos com o regulador financeiro do Reino Unido antes de estrear o agente Muse. O órgão alerta para novos vetores de ataque. Empresas devem liberar agentes autônomos já ou aguardar aval de órgãos reguladores?\n\nFonte: Wired\n\n@gustavobaroni.ai",
+  "url": "https://www.wired.com/story/meta-refused-to-share-muse-for-testing-uk-financial-watchdog-complains/"
  }
 ]
