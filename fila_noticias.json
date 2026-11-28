@@ -306,5 +306,61 @@
   ],
   "legenda": "A Meta negou testes conjuntos com o regulador financeiro do Reino Unido antes de estrear o agente Muse. O órgão alerta para novos vetores de ataque. Empresas devem liberar agentes autônomos já ou aguardar aval de órgãos reguladores?\n\nFonte: Wired\n\n@gustavobaroni.ai",
   "url": "https://www.wired.com/story/meta-refused-to-share-muse-for-testing-uk-financial-watchdog-complains/"
+ },
+ {
+  "noticia": 23,
+  "tipo": "noticia",
+  "data": "2026-11-28",
+  "slides": [
+   "n20261128_023_s1.jpg",
+   "n20261128_023_s2.jpg",
+   "n20261128_023_s3.jpg",
+   "n20261128_023_s4.jpg",
+   "n20261128_023_s5.jpg"
+  ],
+  "legenda": "A OpenAI juntou o Chat e o Work no ChatGPT e avisou que quem usa muito pode bater o limite mais cedo. Simplificou o produto, mas também concentrou tudo numa cota só. Você confiaria o seu trabalho todo a uma ferramenta única?\n\nFonte: TechCrunch\n\n@gustavobaroni.ai",
+  "url": "https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/"
+ },
+ {
+  "noticia": 24,
+  "tipo": "noticia",
+  "data": "2026-11-28",
+  "slides": [
+   "n20261128_024_s1.jpg",
+   "n20261128_024_s2.jpg",
+   "n20261128_024_s3.jpg",
+   "n20261128_024_s4.jpg",
+   "n20261128_024_s5.jpg"
+  ],
+  "legenda": "O Google vai ligar Wallet, Drive e o app Gemini ao modo IA da busca, tudo opcional, com o Wallet primeiro e só leitura. Mais útil, mas mais do seu dado na mão deles. Você liberaria seus gastos para a busca ler?\n\nFonte: Google (via dentro.de)\n\n@gustavobaroni.ai",
+  "url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/"
+ },
+ {
+  "noticia": 25,
+  "tipo": "noticia",
+  "data": "2026-11-28",
+  "slides": [
+   "n20261128_025_s1.jpg",
+   "n20261128_025_s2.jpg",
+   "n20261128_025_s3.jpg",
+   "n20261128_025_s4.jpg",
+   "n20261128_025_s5.jpg"
+  ],
+  "legenda": "A Character.AI quer leiloar conversas privadas de usuários e procuradores-gerais de estados americanos entraram na briga. O que você diz a um chatbot virou ativo da empresa. Conversa com IA deveria ter sigilo como a de médico?\n\nFonte: TechCrunch\n\n@gustavobaroni.ai",
+  "url": "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/"
+ },
+ {
+  "noticia": 26,
+  "tipo": "noticia",
+  "data": "2026-11-28",
+  "slides": [
+   "n20261128_026_s1.jpg",
+   "n20261128_026_s2.jpg",
+   "n20261128_026_s3.jpg",
+   "n20261128_026_s4.jpg",
+   "n20261128_026_s5.jpg"
+  ],
+  "legenda": "Dario Amodei, da Anthropic, chamou de absurda a acusação de que a empresa quer entregar o controle à IA, e disse que não seria seguro o Claude construir modelos de fronteira sozinho. Raro ver o fabricante apontar um limite. Quem deve decidir até onde a IA vai sozinha?\n\nFonte: TechCrunch\n\n@gustavobaroni.ai",
+  "url": "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/"
  }
 ]

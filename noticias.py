@@ -389,7 +389,7 @@ def renderizar(p, pasta, prefixo, data_txt, escuro=False):
             d.rounded_rectangle((M, py, W - M, 1130), radius=28, fill=PRETO)
         d.rectangle((M, py + 36, M + 14, 1130 - 36), fill=VERM)
         av = avatar(140)
-        im.paste(av, (M + 52, py + 36), av)
+        im.paste(av, (int(M + 52), int(py + 36)), av)
         d.text((M + 222, py + 52), "Minha análise", font=f(SANS_B, 40), fill=BRANCO)
         d.text((M + 222, py + 106), "Gustavo Baroni · deslize para ler", font=f(SANS, 30), fill=(210, 210, 210))
         caixa(d, p["subtitulo"], SERIF_I, M + 52, py + 200, W - 2 * M - 100, 1130 - py - 230, 36, 26, esp=1.22, cor=(235, 235, 235))
